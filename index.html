@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy | Checkout Marcy Chan</title>
+    <!-- Google Fonts Inter -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <header class="wrapper-container">
+      <div class="left-container">
+        <!-- Back button removed -->
+      </div>
+      <div class="center-container">
+        <a href="/">
+          <!-- Replace with logo-black image -->
+          <img src="img/logo-black.svg" alt="Privacy Logo" style="height: 22px; margin-top: 5px;" />
+        </a>
+      </div>
+      <div class="right-container">
+        <!-- Language selector removed -->
+      </div>
+    </header>
+
+    <main class="container-inner">
+      <div class="card profile-card">
+        <div class="cover-photo">
+          <img src="img/banner-1080px.jpeg" alt="Banner Marcy Chan" />
+        </div>
+        
+        <div class="profile-header-top">
+          <div class="avatar-wrapper">
+            <img src="img/avatar.jpeg" alt="Marcy Chan" class="avatar-img" />
+          </div>
+          <div class="top-stats">
+            <span><i class="fa-regular fa-image"></i> 2.3K</span>
+            <span><i class="fa-solid fa-video"></i> 385</span>
+            <span><i class="fa-solid fa-lock"></i> 120</span>
+            <span><i class="fa-regular fa-heart"></i> 32.4K</span>
+          </div>
+        </div>
+
+        <div class="profile-info-body">
+          <h1 class="name">
+            Marcy Chan <i class="fa-solid fa-circle-check verified-badge"></i>
+          </h1>
+          <p class="username">@MarcyChan</p>
+          <p class="bio" id="profileBio">
+            <span class="bio-text">oi mô 🥰 eu sou a Marcychan, sua peituda da cintura fininha e olhos verdes 💚 posso fazer meu daddyzinho feliz? aq eu posto muita putaria 🙈 se vc for fã de uma rosadinha esse será seu...</span>
+            <br>
+            <span class="read-more" id="readMoreBtn">Ler mais</span>
+          </p>
+
+            <div class="subscription-group">
+            <h4>Catálogo VIP Sem Censura</h4>
+            
+            <!-- Planos Mais Baratos -->
+            <button class="plan-btn product-btn" onclick="openPaymentModal('Pack Safada VIP', '34,90')">
+              <div style="text-align: left;">
+                <span class="plan-title">Pack Safada VIP</span>
+                <span style="display:block; font-size: 0.8rem; color: #555; margin-top: 4px; font-weight: 500;">Acesso imediato ao meu álbum secreto. Lingeries minúsculas e vídeos curtinhos bem quentes.</span>
+              </div>
+              <div style="text-align: right; margin-left: 8px;">
+                <span class="old-price">R$ 69,90</span>
+                <span class="plan-price">R$ 34,90</span>
+              </div>
+            </button>
+            <button class="plan-btn product-btn" onclick="openPaymentModal('Sessão de Sexting + Nudes', '79,90')">
+               <div style="text-align: left;">
+                <span class="plan-title">Sessão de Sexting + Nudes</span>
+                <span style="display:block; font-size: 0.8rem; color: #555; margin-top: 4px; font-weight: 500;">Me chama de sua putinha no chat. Eu te obedeço ao vivo e te mando fotos do jeito que você mandar.</span>
+              </div>
+              <div style="text-align: right; margin-left: 8px;">
+                <span class="old-price">R$ 149,90</span>
+                <span class="plan-price">R$ 79,90</span>
+              </div>
+            </button>
+
+            <!-- Planos Intermediários -->
+            <button class="plan-btn product-btn" onclick="openPaymentModal('Vídeo Chamada Proibida', '149,90')">
+               <div style="text-align: left;">
+                <span class="plan-title">Vídeo Chamada Proibida (15 min)</span>
+                <span style="display:block; font-size: 0.8rem; color: #555; margin-top: 4px; font-weight: 500;">Onde a mágica acontece. Gemo seu nome e realizo sua fantasia ao vivo, sem frescura.</span>
+              </div>
+              <div style="text-align: right; margin-left: 8px;">
+                <span class="old-price">R$ 299,90</span>
+                <span class="plan-price">R$ 149,90</span>
+              </div>
+            </button>
+
+            <!-- Planos Mais Caros (Criativos e Sexy) -->
+            <button class="plan-btn product-btn" onclick="openPaymentModal('Noite de Dominação Submissa', '299,90')">
+               <div style="text-align: left;">
+                <span class="plan-title">Noite de Dominação Submissa</span>
+                <span style="display:block; font-size: 0.8rem; color: #555; margin-top: 4px; font-weight: 500;">Seja meu dono virtual por uma noite inteira. Tudo que você mandar, eu faço e te gravo a prova.</span>
+              </div>
+              <div style="text-align: right; margin-left: 8px;">
+                <span class="old-price">R$ 599,90</span>
+                <span class="plan-price">R$ 299,90</span>
+              </div>
+            </button>
+            <button class="plan-btn product-btn" onclick="openPaymentModal('Final de Semana Namorada VIP', '599,90')">
+               <div style="text-align: left;">
+                <span class="plan-title">Final de Semana Namorada VIP</span>
+                <span style="display:block; font-size: 0.8rem; color: #555; margin-top: 4px; font-weight: 500;">Sua propriedade de Sexta a Domingo. Mando áudios, vídeos exclusivos de bom dia e fico à sua disposição.</span>
+              </div>
+              <div style="text-align: right; margin-left: 8px;">
+                <span class="old-price">R$ 1.199,90</span>
+                <span class="plan-price">R$ 599,90</span>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card tabs-card">
+        <button class="tab-btn" data-target="postagens"><i class="fa-solid fa-mobile-screen"></i> 1.125 Postagens</button>
+        <button class="tab-btn active" data-target="midias"><i class="fa-solid fa-clapperboard"></i> 2.669 Mídias</button>
+      </div>
+
+      <!-- Midias Content -->
+      <div class="card content-card" id="content-midias">
+        <div class="filters-bar">
+          <button class="filter-btn active">Todos</button>
+          <button class="filter-btn">Fotos</button>
+          <button class="filter-btn">Vídeos</button>
+          <button class="filter-btn">Pagos</button>
+        </div>
+
+        <div class="media-grid">
+          <div class="media-item"><i class="fa-solid fa-lock lock-icon"></i></div>
+          <div class="media-item"><i class="fa-solid fa-lock lock-icon"></i></div>
+          <div class="media-item"><i class="fa-solid fa-lock lock-icon"></i></div>
+          <div class="media-item"><i class="fa-solid fa-lock lock-icon"></i></div>
+          <div class="media-item"><i class="fa-solid fa-lock lock-icon"></i></div>
+          <div class="media-item"><i class="fa-solid fa-lock lock-icon"></i></div>
+        </div>
+      </div>
+
+      <!-- Postagens Content -->
+      <div class="card content-card" id="content-postagens" style="display: none;">
+        <div class="post-card">
+          <div class="post-header">
+            <img src="img/avatar.jpeg" alt="Marcy Chan" class="post-avatar" />
+            <div class="post-user-info">
+              <span class="post-name">Marcy Chan <i class="fa-solid fa-circle-check verified-badge"></i></span>
+              <span class="post-username">@MarcyChan</span>
+            </div>
+            <button class="post-options"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+          </div>
+          <div class="post-media locked-media">
+            <i class="fa-solid fa-lock lock-icon-large"></i>
+            <div class="locked-stats">
+              <span><i class="fa-regular fa-image"></i> 2.3K</span>
+              <span><i class="fa-solid fa-video"></i> 385</span>
+              <span><i class="fa-regular fa-heart"></i> 32.4K</span>
+            </div>
+          </div>
+          <div class="post-footer" style="justify-content: center; padding: 16px;">
+             <button class="plan-btn tip-btn" style="width: 100%; justify-content: center; background: linear-gradient(45deg, #f58170, #f9af77); color: #fff; border-radius: 24px; padding: 14px; font-weight: 700; border: none; cursor: pointer; box-shadow: 0 4px 10px rgba(245, 129, 112, 0.3);" onclick="openPaymentModal('Mimo para a Marcy Chan', '')">
+               <i class="fa-solid fa-gift" style="margin-right: 8px;"></i> Enviar Mimo (Valor Livre)
+             </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div class="cookie-container" style="display: none">
+      <span class="cookie-description">
+        Privacy utiliza cookies e tecnologias similares para fornecer, manter e
+        melhorar nossos serviços. Se você aceitar, usaremos esses dados para
+        personalização e análises associadas. Para mais informações, leia nossa
+        <a href="/terms-and-conditions">Política de Privacidade</a>.
+      </span>
+      <button class="cookie-button" onclick="acceptCookies()">Aceitar</button>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal-overlay">
+      <div class="modal-card">
+        <button class="modal-close" onclick="closePaymentModal()"><i class="fa-solid fa-xmark"></i></button>
+        <h3 id="modalTitle">Enviar Mimo</h3>
+        <p class="modal-subtitle">Preencha os dados abaixo para continuar.</p>
+        
+        <div id="modalForm">
+          <div id="modalError" style="display: none; background: #fee2e2; color: #ef4444; padding: 12px; border-radius: 8px; font-size: 0.85rem; margin-bottom: 16px; font-weight: 600; text-align: center;"></div>
+          
+          <div class="input-group">
+            <label>Nome Completo</label>
+            <input type="text" id="buyerName" placeholder="Seu nome completo" />
+          </div>
+
+          <div class="input-group">
+            <label>CPF</label>
+            <input type="text" id="buyerCpf" placeholder="Apenas números (Ex: 12345678900)" maxlength="11" />
+          </div>
+
+          <div class="input-group">
+            <label>E-mail</label>
+            <input type="email" id="buyerEmail" placeholder="seu@email.com" />
+          </div>
+
+          <div class="input-group">
+            <label>Telefone / WhatsApp</label>
+            <input type="text" id="buyerPhone" placeholder="(11) 99999-9999" maxlength="15" />
+          </div>
+          
+          <div class="input-group">
+            <label>Valor do Pagamento (R$)</label>
+            <div id="mimoPresets" style="display: none; justify-content: space-between; gap: 8px; margin-bottom: 8px;">
+              <button type="button" class="preset-btn" onclick="setPresetValue('15,00')">R$ 15</button>
+              <button type="button" class="preset-btn" onclick="setPresetValue('20,00')">R$ 20</button>
+              <button type="button" class="preset-btn" onclick="setPresetValue('50,00')">R$ 50</button>
+              <button type="button" class="preset-btn" onclick="setPresetValue('100,00')">R$ 100</button>
+            </div>
+            <input type="text" id="buyerValue" placeholder="R$ 0,00" readonly style="background: #f1f1f1; font-weight: bold; color: #333;" />
+          </div>
+
+          <button class="modal-submit-btn" onclick="submitPayment()">Gerar PIX <i class="fa-brands fa-pix" style="margin-left: 8px;"></i></button>
+        </div>
+
+        <!-- PIX QR Code Area (Hidden Initially) -->
+        <div id="modalPix" style="display: none; flex-direction: column; align-items: center;">
+          <h4 style="margin: 0 0 16px; color: #333;">Escaneie o QR Code PIX</h4>
+          <img id="pixQrCodeImg" src="" alt="QR Code PIX" style="width: 200px; height: 200px; border-radius: 12px; border: 1px solid #ddd; margin-bottom: 16px; padding: 8px;" />
+          
+          <div class="input-group" style="width: 100%; margin-bottom: 0;">
+            <label>Ou copie o código (Pix Copia e Cola):</label>
+            <div style="display: flex; gap: 8px; width: 100%;">
+              <input type="text" id="pixCopiaEColaText" readonly style="flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.85rem; outline: none; background: #f9f9f9; color: #555;" />
+              <button id="copyPixBtn" onclick="copyPix()" style="background: var(--primary-color); color: #fff; border: none; padding: 0 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: opacity 0.2s; white-space: nowrap;">
+                Copiar
+              </button>
+            </div>
+          </div>
+          <p style="font-size: 0.8rem; color: #888; text-align: center; margin-top: 16px;">O conteúdo será liberado imediatamente após a confirmação do pagamento.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+  </body>
+</html>
