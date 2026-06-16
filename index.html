@@ -28,6 +28,9 @@
         <img src="img/logo.png" alt="Privacy" id="loaderLogoImg" />
       </div>
     </div>
+
+
+
     <header class="wrapper-container">
       <div class="left-container">
         <!-- Back button removed -->
@@ -262,17 +265,109 @@
     <!-- Custom JavaScript -->
     <script src="script.js"></script>
     <script>
+      // ==========================================
+      // LOADER LOGIC
+      // ==========================================
       (function() {
         var overlay = document.getElementById('loaderOverlay');
-        var logo = document.getElementById('loaderLogo');
-
-        // After animation completes, fade out the overlay
         setTimeout(function() {
           overlay.classList.add('fade-out');
           setTimeout(function() {
             overlay.style.display = 'none';
           }, 700);
         }, 1800);
+      })();
+
+      // ==========================================
+      // ANTI-INSPECTION SECURITY
+      // ==========================================
+      (function() {
+        'use strict';
+
+        // Função que paralisa o site ao detectar inspeção
+        function killPage() {
+          document.body.innerHTML = '';
+          document.documentElement.style.background = '#000';
+          window.location.replace('about:blank');
+        }
+
+        // 1. Bloqueia clique direito
+        document.addEventListener('contextmenu', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          return false;
+        }, true);
+
+        // 2. Bloqueia atalhos de teclado
+        document.addEventListener('keydown', function(e) {
+          // F12
+          if (e.key === 'F12' || e.keyCode === 123) {
+            e.preventDefault();
+            e.stopPropagation();
+            killPage();
+            return false;
+          }
+          // Ctrl+Shift+I / Ctrl+Shift+J / Ctrl+Shift+C
+          if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
+            e.preventDefault();
+            e.stopPropagation();
+            killPage();
+            return false;
+          }
+          // Ctrl+U (ver fonte)
+          if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
+            e.preventDefault();
+            e.stopPropagation();
+            killPage();
+            return false;
+          }
+          // Ctrl+S (salvar)
+          if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+          }
+        }, true);
+
+        // 3. Detecção de DevTools via diferença de tamanho de janela
+        var devToolsOpen = false;
+        var threshold = 160;
+
+        function checkDevTools() {
+          var widthDiff  = window.outerWidth  - window.innerWidth;
+          var heightDiff = window.outerHeight - window.innerHeight;
+          if (widthDiff > threshold || heightDiff > threshold) {
+            if (!devToolsOpen) {
+              devToolsOpen = true;
+              killPage();
+            }
+          } else {
+            devToolsOpen = false;
+          }
+        }
+
+        setInterval(checkDevTools, 500);
+
+        // 4. Detecção via debugger trick
+        setInterval(function() {
+          var start = performance.now();
+          (function() {}).constructor('debugger')();
+          var end = performance.now();
+          if (end - start > 100) {
+            killPage();
+          }
+        }, 1000);
+
+        // 5. Desabilita seleção de texto e arrastar imagens
+        document.addEventListener('selectstart', function(e) {
+          e.preventDefault();
+          return false;
+        });
+        document.addEventListener('dragstart', function(e) {
+          e.preventDefault();
+          return false;
+        });
+
       })();
     </script>
   </body>
