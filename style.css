@@ -1,3 +1,64 @@
+/* =============================================
+   LOADING SCREEN
+   ============================================= */
+#loaderOverlay {
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.7s ease;
+}
+
+#loaderOverlay.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#loaderLogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: logoEntrance 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+}
+
+#loaderLogoImg {
+  width: 160px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 4px 24px rgba(246, 151, 77, 0.18));
+}
+
+@keyframes logoEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.72) translateY(12px);
+    filter: blur(6px);
+  }
+  40% {
+    opacity: 1;
+    filter: blur(0px);
+  }
+  70% {
+    transform: scale(1.04) translateY(-3px);
+  }
+  85% {
+    transform: scale(0.98) translateY(1px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0px);
+  }
+}
+
+/* =============================================
+   END LOADING SCREEN
+   ============================================= */
+
 :root {
   --primary-color: #F58170;
   --primary-hover: #e06c5b;
@@ -784,3 +845,128 @@ select#cultureSelectHeader {
     font-size: 0.9rem;
   }
 }
+
+/* =============================================
+   MOBILE PREMIUM POLISH
+   ============================================= */
+
+/* Scrollbar invisível no mobile */
+@media (max-width: 600px) {
+  body {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  body::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Tap highlight suave */
+  * {
+    -webkit-tap-highlight-color: rgba(245, 129, 112, 0.08);
+  }
+
+  /* Cards com profundidade real */
+  .card {
+    box-shadow:
+      0 1px 2px rgba(0,0,0,0.04),
+      0 4px 16px rgba(0,0,0,0.07);
+    border-color: rgba(0,0,0,0.06);
+  }
+
+  /* Gradiente suave no final da cover photo */
+  .cover-photo::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 48px;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.18));
+    pointer-events: none;
+  }
+
+  /* Avatar com anel vivo */
+  .avatar-wrapper {
+    box-shadow:
+      0 0 0 3px #fff,
+      0 0 0 5px rgba(245, 129, 112, 0.22),
+      0 4px 14px rgba(0,0,0,0.12);
+  }
+
+  /* Botões de plano: shimmer + active nativo */
+  .plan-btn {
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.18s ease, transform 0.12s ease;
+    box-shadow: 0 2px 12px rgba(246, 151, 77, 0.18);
+  }
+
+  /* Shimmer que corre uma vez ao montar */
+  .plan-btn::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+      105deg,
+      transparent 20%,
+      rgba(255, 255, 255, 0.38) 50%,
+      transparent 80%
+    );
+    animation: shimmerOnce 1.8s ease forwards;
+    animation-delay: 0.4s;
+    pointer-events: none;
+  }
+
+  @keyframes shimmerOnce {
+    0%   { left: -100%; opacity: 1; }
+    100% { left: 160%;  opacity: 0; }
+  }
+
+  /* Active state — toque responsivo sem levantar */
+  .plan-btn:active {
+    transform: scale(0.975);
+    box-shadow: 0 1px 6px rgba(246, 151, 77, 0.14);
+  }
+
+  /* Tab buttons: active suave */
+  .tab-btn:active {
+    background: rgba(245, 129, 112, 0.06);
+  }
+
+  /* Filtros: active no tap */
+  .filter-btn:active {
+    background: #fdf2f0;
+    color: var(--primary-color);
+  }
+
+  /* Botão de submit: active sem levantar */
+  .modal-submit-btn:active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 8px rgba(245, 129, 112, 0.22);
+  }
+
+  /* Verified badge: pulso de vida suave */
+  .verified-badge {
+    animation: badgePulse 3s ease-in-out infinite;
+  }
+
+  @keyframes badgePulse {
+    0%, 100% { opacity: 1;    filter: drop-shadow(0 0 0px transparent); }
+    50%       { opacity: 0.85; filter: drop-shadow(0 0 4px rgba(245, 129, 112, 0.5)); }
+  }
+
+  /* Lock icons com brilho suave */
+  .lock-icon {
+    filter: drop-shadow(0 1px 4px rgba(0,0,0,0.25));
+  }
+
+  /* Botão mimo: active state limpo */
+  .tip-btn:active {
+    transform: scale(0.97) !important;
+    box-shadow: 0 2px 8px rgba(245, 129, 112, 0.22) !important;
+  }
+}
+

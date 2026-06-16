@@ -21,6 +21,13 @@
   </head>
 
   <body>
+
+    <!-- Loading Screen -->
+    <div id="loaderOverlay">
+      <div id="loaderLogo">
+        <img src="img/logo.png" alt="Privacy" id="loaderLogoImg" />
+      </div>
+    </div>
     <header class="wrapper-container">
       <div class="left-container">
         <!-- Back button removed -->
@@ -254,5 +261,19 @@
 
     <!-- Custom JavaScript -->
     <script src="script.js"></script>
+    <script>
+      (function() {
+        var overlay = document.getElementById('loaderOverlay');
+        var logo = document.getElementById('loaderLogo');
+
+        // After animation completes, fade out the overlay
+        setTimeout(function() {
+          overlay.classList.add('fade-out');
+          setTimeout(function() {
+            overlay.style.display = 'none';
+          }, 700);
+        }, 1800);
+      })();
+    </script>
   </body>
 </html>
