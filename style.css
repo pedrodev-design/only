@@ -294,6 +294,7 @@ select#cultureSelectHeader {
 
 .scarcity-fire {
   font-size: 1rem;
+  color: #c45000;
   flex-shrink: 0;
 }
 
