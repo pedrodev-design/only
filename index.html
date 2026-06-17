@@ -265,7 +265,7 @@
       <div class="modal-card">
         <button class="modal-close" onclick="closePaymentModal()"><i class="fa-solid fa-xmark"></i></button>
         <h3 id="modalTitle">Enviar Mimo</h3>
-        <p class="modal-subtitle">Preencha os dados abaixo para continuar.</p>
+        <p class="modal-subtitle">Preencha os dados abaixo para finalizar sua compra.</p>
         
         <div id="modalForm">
           <div id="modalError" style="display: none; background: #fee2e2; color: #ef4444; padding: 12px; border-radius: 8px; font-size: 0.85rem; margin-bottom: 16px; font-weight: 600; text-align: center;"></div>
@@ -276,8 +276,8 @@
           </div>
 
           <div class="input-group">
-            <label>CPF</label>
-            <input type="text" id="buyerCpf" placeholder="Apenas números (Ex: 12345678900)" maxlength="14" />
+            <label>CPF <span class="label-optional">(opcional)</span></label>
+            <input type="text" id="buyerCpf" placeholder="Ex: 123.456.789-00" maxlength="14" />
           </div>
 
           <div class="input-group">
@@ -298,6 +298,7 @@
           </div>
 
           <button class="modal-submit-btn" onclick="submitPayment()">Gerar PIX <i class="fa-brands fa-pix" style="margin-left: 8px;"></i></button>
+          <p class="modal-privacy"><i class="fa-solid fa-lock"></i> Compra discreta — não aparece no extrato com o nome do produto</p>
         </div>
 
         <!-- PIX QR Code Area (Hidden Initially) -->

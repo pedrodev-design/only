@@ -157,7 +157,7 @@ async function submitPayment() {
   const title = document.getElementById("modalTitle").textContent;
   const btn = document.querySelector(".modal-submit-btn");
 
-  if (!name || !cpf || !email || !value) {
+  if (!name || !email || !value) {
     showModalError("Por favor, preencha todos os campos corretamente.");
     return;
   }
@@ -223,7 +223,6 @@ function closePaymentModal() {
     document.getElementById("buyerName").value = "";
     document.getElementById("buyerCpf").value = "";
     document.getElementById("buyerEmail").value = "";
-    document.getElementById("buyerPhone").value = "";
     document.getElementById("mimoPresets").style.display = "none";
     hideModalError();
   }, 300);
@@ -245,17 +244,4 @@ document.getElementById("buyerCpf").addEventListener("input", function (e) {
   e.target.value = value;
 });
 
-document.getElementById("buyerPhone").addEventListener("input", function (e) {
-  let value = e.target.value.replace(/\D/g, "");
-  if (value.length > 11) value = value.slice(0, 11);
-  if (value.length > 10) {
-    value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, "($1) $2-$3");
-  } else if (value.length > 6) {
-    value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, "($1) $2-$3");
-  } else if (value.length > 2) {
-    value = value.replace(/^(\d{2})(\d{1,5}).*/, "($1) $2");
-  } else if (value.length > 0) {
-    value = value.replace(/^(\d{1,2}).*/, "($1");
-  }
-  e.target.value = value;
-});
+

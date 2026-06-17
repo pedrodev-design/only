@@ -858,6 +858,28 @@ select#cultureSelectHeader {
   box-shadow: 0 6px 16px rgba(245, 129, 112, 0.4);
 }
 
+.label-optional {
+  font-weight: 400;
+  color: #888;
+  font-size: 0.75rem;
+  margin-left: 4px;
+}
+
+.modal-privacy {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #666;
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+.modal-privacy i {
+  color: #888;
+}
+
 .preset-btn {
   flex: 1;
   background: #f1f1f1;
