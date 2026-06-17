@@ -21,15 +21,12 @@
   </head>
 
   <body>
-
     <!-- Loading Screen -->
     <div id="loaderOverlay">
       <div id="loaderLogo">
         <img src="img/logo.png" alt="Privacy" id="loaderLogoImg" />
       </div>
     </div>
-
-
 
     <header class="wrapper-container">
       <div class="left-container">
@@ -38,7 +35,11 @@
       <div class="center-container">
         <a href="/">
           <!-- Replace with logo-black image -->
-          <img src="img/logo-black.svg" alt="Privacy Logo" style="height: 22px; margin-top: 5px;" />
+          <img
+            src="img/logo-black.svg"
+            alt="Privacy Logo"
+            style="height: 22px; margin-top: 5px"
+          />
         </a>
       </div>
       <div class="right-container">
@@ -51,7 +52,7 @@
         <div class="cover-photo">
           <img src="img/banner-1080px.jpeg" alt="Banner Camila Chan" />
         </div>
-        
+
         <div class="profile-header-top">
           <div class="avatar-wrapper">
             <img src="img/avatar.jpeg" alt="Camila Chan" class="avatar-img" />
@@ -71,86 +72,293 @@
           <p class="username">@CamilaChan</p>
 
           <p class="bio" id="profileBio">
-            <span class="bio-text"><i class="fa-solid fa-triangle-exclamation" style="color: #e74c3c;"></i> <strong>ALERTA: CONTEÚDO EXTREMAMENTE SUJO E SEM CENSURA</strong> <i class="fa-solid fa-triangle-exclamation" style="color: #e74c3c;"></i><br><br>Eu sou a Camilachan, aquela peituda que você sempre quis comer. Aqui não tem frescura. O que eu gravo no meu quarto, sozinha, vai direto pra você. Gozo na tela, gemo seu nome e faço o que você mandar. Se você não aguenta ver uma novinha rosadinha implorando por leite, saia daqui AGORA. <i class="fa-solid fa-fire" style="color: #e67e22;"></i></span>
+            <span class="bio-text"
+              ><i
+                class="fa-solid fa-triangle-exclamation"
+                style="color: #e74c3c"
+              ></i>
+              <strong
+                >ALERTA: CONTEÚDO EXTREMAMENTE GOSTOSO E SEM CENSURA</strong
+              >
+              <i
+                class="fa-solid fa-triangle-exclamation"
+                style="color: #e74c3c"
+              ></i
+              ><br /><br />Eu sou a Camilachan, aquela peituda que você sempre
+              quis comer. Aqui não tem frescura. O que eu gravo no meu quarto,
+              sozinha, vai direto pra você. Gozo na tela, gemo seu nome e faço o
+              que você mandar. Se você não aguenta ver uma novinha rosadinha
+              implorando por leite, saia daqui AGORA.
+              <i class="fa-solid fa-fire" style="color: #e67e22"></i
+            ></span>
           </p>
 
-            <div class="subscription-group">
-            
+          <div class="subscription-group">
             <!-- Banner de escassez -->
             <div class="scarcity-banner">
-              <i class="fa-solid fa-triangle-exclamation scarcity-fire" style="animation: pulsePlan 1.5s infinite;"></i>
-              <span class="scarcity-text">ESTA PÁGINA SERÁ TIRADA DO AR EM <strong id="offerTimer">--:--</strong></span>
+              <i
+                class="fa-solid fa-triangle-exclamation scarcity-fire"
+                style="animation: pulsePlan 1.5s infinite"
+              ></i>
+              <span class="scarcity-text"
+                >ESTA PÁGINA SERÁ TIRADA DO AR EM
+                <strong id="offerTimer">--:--</strong></span
+              >
             </div>
 
             <h4>Catálogo VIP Sem Censura</h4>
-            
+
             <!-- Planos Agressivos de Baixo Ticket -->
             <div class="plan-wrapper">
-              <button class="plan-btn product-btn" onclick="openPaymentModal('VAZAMENTO: Meu Drive Pessoal (+250 Mídias)', '29,90')">
-                <div style="text-align: left;">
-                  <span class="plan-title"><i class="fa-solid fa-lock-open" style="margin-right: 4px;"></i> VAZAMENTO: Meu Drive Pessoal (+250 Mídias)</span>
-                  <span style="display:block; font-size: 0.8rem; color: #333; margin-top: 4px; font-weight: 500;"><strong>O que recebe:</strong> Acesso INSTANTÂNEO ao meu arquivo secreto. Tudo que a Privacy me PROÍBE de postar. +200 fotos arreganhada e 50 vídeos de eu gozando e enfiando de tudo, SEM NENHUMA TARJA.<br><strong style="color:#d9482b;">Por que vale:</strong> Pelo preço de um lanche, você tem acesso VITALÍCIO pra esvaziar as bolas hoje mesmo. <strong>VOU APAGAR ESSE LINK EM 24 HORAS.</strong></span>
+              <button
+                class="plan-btn product-btn"
+                onclick="
+                  openPaymentModal(
+                    'VAZAMENTO: Meu Drive Pessoal (+250 Mídias)',
+                    '29,90',
+                  )
+                "
+              >
+                <div style="text-align: left">
+                  <span class="plan-title">VAZAMENTO: Meu Drive Pessoal (+250 Mídias)</span>
+                  <ul
+                    style="
+                      margin: 8px 0 0;
+                      padding: 0;
+                      list-style: none;
+                      font-size: 0.8rem;
+                      color: #fff;
+                      line-height: 1.4;
+                      font-weight: 500;
+                    "
+                  >
+                    <li>
+                      <i
+                        class="fa-solid fa-check"
+                        style="color: #27ae60; margin-right: 4px"
+                      ></i>
+                      +200 Fotos e 50 Vídeos sem tarja
+                    </li>
+                    <li>
+                      <i
+                        class="fa-solid fa-check"
+                        style="color: #27ae60; margin-right: 4px"
+                      ></i>
+                      O conteúdo que a Privacy baniu
+                    </li>
+                    <li>
+                      <i
+                        class="fa-solid fa-check"
+                        style="color: #27ae60; margin-right: 4px"
+                      ></i>
+                      <strong style="color: #fff">Acesso Vitalício</strong>
+                    </li>
+                  </ul>
                 </div>
-                <div style="text-align: right; margin-left: 8px;">
+                <div style="text-align: right; margin-left: 8px">
                   <span class="old-price">R$ 89,90</span>
                   <span class="plan-price">R$ 29,90</span>
                 </div>
               </button>
-              <div class="social-proof"><i class="fa-solid fa-fire"></i> 47 homens já garantiram acesso nas últimas 2 horas</div>
+              <div class="social-proof">
+                <i class="fa-solid fa-fire"></i> 47 homens já garantiram acesso
+                nas últimas 2 horas
+              </div>
             </div>
 
             <!-- UPSELL / COMBO MAIS POPULAR -->
             <div class="plan-wrapper popular">
-              <div class="popular-badge"><i class="fa-solid fa-star"></i> COMBO MÁXIMO: O FAVORITO DOS DADDYS <i class="fa-solid fa-star"></i></div>
-              <button class="plan-btn product-btn" onclick="openPaymentModal('AO VIVO: Vídeo Chamada (20min) + Sexting 24h', '97,90')">
-                 <div style="text-align: left;">
-                  <span class="plan-title"><i class="fa-solid fa-video" style="color: #e74c3c; margin-right: 4px; animation: pulsePlan 1.5s infinite;"></i> AO VIVO: Vídeo Chamada (20min) + Sexting 24h</span>
-                  <span style="display:block; font-size: 0.8rem; color: #333; margin-top: 4px; font-weight: 500;"><strong>O que recebe:</strong> Eu e você, câmera ligada. Você manda, eu obedeço. Fico de quatro, abro pra você e gemo seu nome. Além disso: 24h de chat VIP liberado comigo mandando nudes exclusivos na hora.<br><strong style="color:#d9482b;">Por que vale:</strong> A experiência MAIS REAL que você já teve sem sair de casa. Sou sua submissa particular por menos de 100 reais. <strong>Quem piscar, perde.</strong></span>
+              <div class="popular-badge">
+                <i class="fa-solid fa-star"></i> COMBO MÁXIMO: O FAVORITO DOS
+                DADDYS <i class="fa-solid fa-star"></i>
+              </div>
+              <button
+                class="plan-btn product-btn"
+                onclick="
+                  openPaymentModal(
+                    'AO VIVO: Vídeo Chamada (20min) + Sexting 24h',
+                    '97,90',
+                  )
+                "
+              >
+                <div style="text-align: left">
+                  <span class="plan-title">AO VIVO: Vídeo Chamada (20min) + Sexting 24h</span>
+                  <ul
+                    style="
+                      margin: 8px 0 0;
+                      padding: 0;
+                      list-style: none;
+                      font-size: 0.8rem;
+                      color: #fff;
+                      line-height: 1.4;
+                      font-weight: 500;
+                    "
+                  >
+                    <li>
+                      <i
+                        class="fa-solid fa-check"
+                        style="color: #27ae60; margin-right: 4px"
+                      ></i>
+                      20 min de chamada (Você manda)
+                    </li>
+                    <li>
+                      <i
+                        class="fa-solid fa-check"
+                        style="color: #27ae60; margin-right: 4px"
+                      ></i>
+                      Fico de 4 e gemo seu nome
+                    </li>
+                    <li>
+                      <i
+                        class="fa-solid fa-check"
+                        style="color: #27ae60; margin-right: 4px"
+                      ></i>
+                      <strong style="color: #fff"
+                        >+24h de Sexting VIP liberado</strong
+                      >
+                    </li>
+                  </ul>
                 </div>
-                <div style="text-align: right; margin-left: 8px;">
+                <div style="text-align: right; margin-left: 8px">
                   <span class="old-price">R$ 197,90</span>
                   <span class="plan-price">R$ 97,90</span>
                 </div>
               </button>
-              <div class="social-proof"><i class="fa-solid fa-triangle-exclamation"></i> ALERTA: Últimas 2 vagas para chamada hoje.</div>
+              <div class="social-proof">
+                <i class="fa-solid fa-triangle-exclamation"></i> ALERTA: Últimas
+                2 vagas para chamada hoje.
+              </div>
             </div>
 
             <!-- PRODUTOS FÍSICOS / REAIS -->
             <div class="plan-wrapper">
-              <button class="plan-btn product-btn" onclick="openPaymentModal('MINHA CALCINHA MOLHADA (Envio Sigiloso)', '147,90')">
-                 <div style="text-align: left;">
-                  <span class="plan-title"><i class="fa-solid fa-box" style="margin-right: 4px;"></i> MINHA CALCINHA MOLHADA (Envio Sigiloso)</span>
-                  <span style="display:block; font-size: 0.8rem; color: #333; margin-top: 4px; font-weight: 500;"><strong>O que recebe:</strong> Vou usar a mesma calcinha por 2 dias, me masturbar gostoso nela e colocar num saco a vácuo pra preservar TODO o meu cheiro e meu mel. Acompanha vídeo HD provando.<br><strong style="color:#d9482b;">Por que vale:</strong> Sabe aquele cheirinho de buceta molhada? É o que você vai esfregar no rosto quando o pacote discreto chegar. Experiência 100% visceral.</span>
+              <button
+                class="plan-btn product-btn"
+                onclick="
+                  openPaymentModal(
+                    'MINHA CALCINHA MOLHADA (Envio Sigiloso)',
+                    '147,90',
+                  )
+                "
+              >
+                <div style="text-align: left">
+                  <span class="plan-title">MINHA CALCINHA MOLHADA (Envio Sigiloso)</span>
+                  <ul
+                    style="
+                      margin: 8px 0 0;
+                      padding: 0;
+                      list-style: none;
+                      font-size: 0.8rem;
+                      color: #fff;
+                      line-height: 1.4;
+                      font-weight: 500;
+                    "
+                  >
+                    <li>
+                      <i
+                        class="fa-solid fa-check"
+                        style="color: #27ae60; margin-right: 4px"
+                      ></i>
+                      Usada por 2 dias e embalada a vácuo
+                    </li>
+                    <li>
+                      <i
+                        class="fa-solid fa-check"
+                        style="color: #27ae60; margin-right: 4px"
+                      ></i>
+                      Acompanha vídeo HD provando
+                    </li>
+                    <li>
+                      <i
+                        class="fa-solid fa-check"
+                        style="color: #27ae60; margin-right: 4px"
+                      ></i>
+                      <strong style="color: #fff"
+                        >Frete 100% discreto e grátis</strong
+                      >
+                    </li>
+                  </ul>
                 </div>
-                <div style="text-align: right; margin-left: 8px;">
+                <div style="text-align: right; margin-left: 8px">
                   <span class="old-price">R$ 297,90</span>
                   <span class="plan-price">R$ 147,90</span>
                 </div>
               </button>
-              <div class="social-proof"><i class="fa-solid fa-hourglass-half"></i> ESTOQUE QUASE ZERADO: Só tenho mais 1 dessa semana.</div>
+              <div class="social-proof">
+                <i class="fa-solid fa-hourglass-half"></i> ESTOQUE QUASE ZERADO:
+                Só tenho mais 1 dessa semana.
+              </div>
             </div>
 
             <div class="plan-wrapper">
-              <button class="plan-btn product-btn" onclick="openPaymentModal('O ENCONTRO: Visita Presencial (Sinal)', '297,90')">
-                 <div style="text-align: left;">
-                  <span class="plan-title"><i class="fa-solid fa-location-dot" style="margin-right: 4px;"></i> O ENCONTRO: Visita Presencial (Sinal)</span>
-                  <span style="display:block; font-size: 0.8rem; color: #333; margin-top: 4px; font-weight: 500;"><strong>O que recebe:</strong> Chega de tela. 2 horas de sexo cru, sem frescura e sem limites no seu local. Eu vou até você e rola ABSOLUTAMENTE TUDO. Você faz o que quiser com meu corpo.<br><strong style="color:#d9482b;">Por que vale:</strong> Esse valor garante sua vaga AGORA na minha agenda. O restante você paga na hora. Você nunca pegou numa novinha tão apertada e safada na vida real. BORA?</span>
+              <button
+                class="plan-btn product-btn"
+                onclick="
+                  openPaymentModal(
+                    'O ENCONTRO: Visita Presencial (Sinal)',
+                    '297,90',
+                  )
+                "
+              >
+                <div style="text-align: left">
+                  <span class="plan-title">O ENCONTRO: Visita Presencial (Sinal)</span>
+                  <ul
+                    style="
+                      margin: 8px 0 0;
+                      padding: 0;
+                      list-style: none;
+                      font-size: 0.8rem;
+                      color: #fff;
+                      line-height: 1.4;
+                      font-weight: 500;
+                    "
+                  >
+                    <li>
+                      <i
+                        class="fa-solid fa-check"
+                        style="color: #27ae60; margin-right: 4px"
+                      ></i>
+                      2h comigo no seu local (Rola TUDO)
+                    </li>
+                    <li>
+                      <i
+                        class="fa-solid fa-check"
+                        style="color: #27ae60; margin-right: 4px"
+                      ></i>
+                      Sem frescura e sem limites
+                    </li>
+                    <li>
+                      <i
+                        class="fa-solid fa-check"
+                        style="color: #27ae60; margin-right: 4px"
+                      ></i>
+                      <strong style="color: #fff"
+                        >Sinal garante a reserva na hora</strong
+                      >
+                    </li>
+                  </ul>
                 </div>
-                <div style="text-align: right; margin-left: 8px;">
+                <div style="text-align: right; margin-left: 8px">
                   <span class="old-price">R$ 600,00</span>
                   <span class="plan-price">R$ 297,90</span>
                 </div>
               </button>
-              <div class="social-proof"><i class="fa-solid fa-ban"></i> FECHANDO AGENDA: Apenas 1 horário disponível.</div>
+              <div class="social-proof">
+                <i class="fa-solid fa-ban"></i> FECHANDO AGENDA: Apenas 1
+                horário disponível.
+              </div>
             </div>
-
           </div>
         </div>
       </div>
 
       <div class="card tabs-card">
-        <button class="tab-btn" data-target="postagens"><i class="fa-solid fa-mobile-screen"></i> 1.125 Postagens</button>
-        <button class="tab-btn active" data-target="midias"><i class="fa-solid fa-clapperboard"></i> 2.669 Mídias</button>
+        <button class="tab-btn" data-target="postagens">
+          <i class="fa-solid fa-mobile-screen"></i> 1.125 Postagens
+        </button>
+        <button class="tab-btn active" data-target="midias">
+          <i class="fa-solid fa-clapperboard"></i> 2.669 Mídias
+        </button>
       </div>
 
       <!-- Midias Content -->
@@ -163,57 +371,115 @@
         </div>
 
         <div class="media-grid">
-          <div class="media-item previa-item" onclick="openPaymentModal('Pack Safada VIP', '34,90')">
+          <div
+            class="media-item previa-item"
+            onclick="openPaymentModal('Pack Safada VIP', '34,90')"
+          >
             <img src="img/previas/1.jpg" class="previa-bg" alt="" />
-            <div class="previa-overlay"><i class="fa-solid fa-lock lock-icon"></i></div>
+            <div class="previa-overlay">
+              <i class="fa-solid fa-lock lock-icon"></i>
+            </div>
           </div>
-          <div class="media-item previa-item" onclick="openPaymentModal('Pack Safada VIP', '34,90')">
+          <div
+            class="media-item previa-item"
+            onclick="openPaymentModal('Pack Safada VIP', '34,90')"
+          >
             <img src="img/previas/2.jpg" class="previa-bg" alt="" />
-            <div class="previa-overlay"><i class="fa-solid fa-lock lock-icon"></i></div>
+            <div class="previa-overlay">
+              <i class="fa-solid fa-lock lock-icon"></i>
+            </div>
           </div>
-          <div class="media-item previa-item" onclick="openPaymentModal('Pack Safada VIP', '34,90')">
+          <div
+            class="media-item previa-item"
+            onclick="openPaymentModal('Pack Safada VIP', '34,90')"
+          >
             <img src="img/previas/3.jpg" class="previa-bg" alt="" />
-            <div class="previa-overlay"><i class="fa-solid fa-lock lock-icon"></i></div>
+            <div class="previa-overlay">
+              <i class="fa-solid fa-lock lock-icon"></i>
+            </div>
           </div>
-          <div class="media-item previa-item" onclick="openPaymentModal('Pack Safada VIP', '34,90')">
+          <div
+            class="media-item previa-item"
+            onclick="openPaymentModal('Pack Safada VIP', '34,90')"
+          >
             <img src="img/previas/4.jpg" class="previa-bg" alt="" />
-            <div class="previa-overlay"><i class="fa-solid fa-lock lock-icon"></i></div>
+            <div class="previa-overlay">
+              <i class="fa-solid fa-lock lock-icon"></i>
+            </div>
           </div>
-          <div class="media-item previa-item" onclick="openPaymentModal('Pack Safada VIP', '34,90')">
+          <div
+            class="media-item previa-item"
+            onclick="openPaymentModal('Pack Safada VIP', '34,90')"
+          >
             <img src="img/previas/5.jpg" class="previa-bg" alt="" />
-            <div class="previa-overlay"><i class="fa-solid fa-lock lock-icon"></i></div>
+            <div class="previa-overlay">
+              <i class="fa-solid fa-lock lock-icon"></i>
+            </div>
           </div>
-          <div class="media-item previa-item" onclick="openPaymentModal('Pack Safada VIP', '34,90')">
+          <div
+            class="media-item previa-item"
+            onclick="openPaymentModal('Pack Safada VIP', '34,90')"
+          >
             <img src="img/previas/6.jpg" class="previa-bg" alt="" />
-            <div class="previa-overlay"><i class="fa-solid fa-lock lock-icon"></i></div>
+            <div class="previa-overlay">
+              <i class="fa-solid fa-lock lock-icon"></i>
+            </div>
           </div>
-          <div class="media-item previa-item" onclick="openPaymentModal('Pack Safada VIP', '34,90')">
+          <div
+            class="media-item previa-item"
+            onclick="openPaymentModal('Pack Safada VIP', '34,90')"
+          >
             <img src="img/previas/7.jpg" class="previa-bg" alt="" />
-            <div class="previa-overlay"><i class="fa-solid fa-lock lock-icon"></i></div>
+            <div class="previa-overlay">
+              <i class="fa-solid fa-lock lock-icon"></i>
+            </div>
           </div>
-          <div class="media-item previa-item" onclick="openPaymentModal('Pack Safada VIP', '34,90')">
+          <div
+            class="media-item previa-item"
+            onclick="openPaymentModal('Pack Safada VIP', '34,90')"
+          >
             <img src="img/previas/8.jpg" class="previa-bg" alt="" />
-            <div class="previa-overlay"><i class="fa-solid fa-lock lock-icon"></i></div>
+            <div class="previa-overlay">
+              <i class="fa-solid fa-lock lock-icon"></i>
+            </div>
           </div>
-          <div class="media-item previa-item" onclick="openPaymentModal('Pack Safada VIP', '34,90')">
+          <div
+            class="media-item previa-item"
+            onclick="openPaymentModal('Pack Safada VIP', '34,90')"
+          >
             <img src="img/previas/9.jpg" class="previa-bg" alt="" />
-            <div class="previa-overlay"><i class="fa-solid fa-lock lock-icon"></i></div>
+            <div class="previa-overlay">
+              <i class="fa-solid fa-lock lock-icon"></i>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Postagens Content -->
-      <div class="card content-card" id="content-postagens" style="display: none;">
+      <div
+        class="card content-card"
+        id="content-postagens"
+        style="display: none"
+      >
         <div class="post-card">
           <div class="post-header">
             <img src="img/avatar.jpeg" alt="Camila Chan" class="post-avatar" />
             <div class="post-user-info">
-              <span class="post-name">Camila Chan <i class="fa-solid fa-circle-check verified-badge"></i></span>
+              <span class="post-name"
+                >Camila Chan
+                <i class="fa-solid fa-circle-check verified-badge"></i
+              ></span>
               <span class="post-username">@CamilaChan</span>
             </div>
-            <button class="post-options"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+            <button class="post-options">
+              <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
           </div>
-          <div class="post-media locked-media previa-central" onclick="openPaymentModal('Pack Safada VIP', '34,90')" style="cursor:pointer;">
+          <div
+            class="post-media locked-media previa-central"
+            onclick="openPaymentModal('Pack Safada VIP', '34,90')"
+            style="cursor: pointer"
+          >
             <img src="img/previas/10.jpg" class="previa-bg-central" alt="" />
             <div class="previa-central-overlay">
               <i class="fa-solid fa-lock lock-icon-large"></i>
@@ -222,13 +488,35 @@
                 <span><i class="fa-solid fa-video"></i> 385</span>
                 <span><i class="fa-regular fa-heart"></i> 32.4K</span>
               </div>
-              <div class="previa-unlock-hint"><i class="fa-solid fa-lock" style="margin-right:5px;"></i>Toque para desbloquear</div>
+              <div class="previa-unlock-hint">
+                <i class="fa-solid fa-lock" style="margin-right: 5px"></i>Toque
+                para desbloquear
+              </div>
             </div>
           </div>
-          <div class="post-footer" style="justify-content: center; padding: 16px;">
-             <button class="plan-btn tip-btn" style="width: 100%; justify-content: center; background: linear-gradient(45deg, #f58170, #f9af77); color: #fff; border-radius: 24px; padding: 14px; font-weight: 700; border: none; cursor: pointer; box-shadow: 0 4px 10px rgba(245, 129, 112, 0.3);" onclick="openPaymentModal('Mimo para a Camila Chan', '')">
-               <i class="fa-solid fa-gift" style="margin-right: 8px;"></i> Enviar Mimo (Valor Livre)
-             </button>
+          <div
+            class="post-footer"
+            style="justify-content: center; padding: 16px"
+          >
+            <button
+              class="plan-btn tip-btn"
+              style="
+                width: 100%;
+                justify-content: center;
+                background: linear-gradient(45deg, #f58170, #f9af77);
+                color: #fff;
+                border-radius: 24px;
+                padding: 14px;
+                font-weight: 700;
+                border: none;
+                cursor: pointer;
+                box-shadow: 0 4px 10px rgba(245, 129, 112, 0.3);
+              "
+              onclick="openPaymentModal('Mimo para a Camila Chan', '')"
+            >
+              <i class="fa-solid fa-gift" style="margin-right: 8px"></i> Enviar
+              Mimo (Valor Livre)
+            </button>
           </div>
         </div>
       </div>
@@ -250,13 +538,30 @@
     <!-- Payment Modal -->
     <div id="paymentModal" class="modal-overlay">
       <div class="modal-card">
-        <button class="modal-close" onclick="closePaymentModal()"><i class="fa-solid fa-xmark"></i></button>
+        <button class="modal-close" onclick="closePaymentModal()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
         <h3 id="modalTitle">Enviar Mimo</h3>
-        <p class="modal-subtitle">Preencha os dados abaixo para finalizar sua compra.</p>
-        
+        <p class="modal-subtitle">
+          Preencha os dados abaixo para finalizar sua compra.
+        </p>
+
         <div id="modalForm">
-          <div id="modalError" style="display: none; background: #fee2e2; color: #ef4444; padding: 12px; border-radius: 8px; font-size: 0.85rem; margin-bottom: 16px; font-weight: 600; text-align: center;"></div>
-          
+          <div
+            id="modalError"
+            style="
+              display: none;
+              background: #fee2e2;
+              color: #ef4444;
+              padding: 12px;
+              border-radius: 8px;
+              font-size: 0.85rem;
+              margin-bottom: 16px;
+              font-weight: 600;
+              text-align: center;
+            "
+          ></div>
+
           <div class="input-group">
             <label>Nome Completo</label>
             <input type="text" id="buyerName" placeholder="Seu nome completo" />
@@ -264,7 +569,12 @@
 
           <div class="input-group">
             <label>CPF <span class="label-optional">(opcional)</span></label>
-            <input type="text" id="buyerCpf" placeholder="Ex: 123.456.789-00" maxlength="14" />
+            <input
+              type="text"
+              id="buyerCpf"
+              placeholder="Ex: 123.456.789-00"
+              maxlength="14"
+            />
           </div>
 
           <div class="input-group">
@@ -272,42 +582,144 @@
             <input type="email" id="buyerEmail" placeholder="seu@email.com" />
           </div>
 
-
           <div class="input-group">
             <label>Valor do Pagamento (R$)</label>
-            <div id="mimoPresets" style="display: none; justify-content: space-between; gap: 8px; margin-bottom: 8px;">
-              <button type="button" class="preset-btn" onclick="setPresetValue('15,00')">R$ 15</button>
-              <button type="button" class="preset-btn" onclick="setPresetValue('20,00')">R$ 20</button>
-              <button type="button" class="preset-btn" onclick="setPresetValue('50,00')">R$ 50</button>
-              <button type="button" class="preset-btn" onclick="setPresetValue('100,00')">R$ 100</button>
+            <div
+              id="mimoPresets"
+              style="
+                display: none;
+                justify-content: space-between;
+                gap: 8px;
+                margin-bottom: 8px;
+              "
+            >
+              <button
+                type="button"
+                class="preset-btn"
+                onclick="setPresetValue('15,00')"
+              >
+                R$ 15
+              </button>
+              <button
+                type="button"
+                class="preset-btn"
+                onclick="setPresetValue('20,00')"
+              >
+                R$ 20
+              </button>
+              <button
+                type="button"
+                class="preset-btn"
+                onclick="setPresetValue('50,00')"
+              >
+                R$ 50
+              </button>
+              <button
+                type="button"
+                class="preset-btn"
+                onclick="setPresetValue('100,00')"
+              >
+                R$ 100
+              </button>
             </div>
-            <input type="text" id="buyerValue" placeholder="R$ 0,00" readonly style="background: #f1f1f1; font-weight: bold; color: #333;" />
+            <input
+              type="text"
+              id="buyerValue"
+              placeholder="R$ 0,00"
+              readonly
+              style="background: #f1f1f1; font-weight: bold; color: #333"
+            />
           </div>
 
-          <button class="modal-submit-btn" onclick="submitPayment()">Gerar PIX <i class="fa-brands fa-pix" style="margin-left: 8px;"></i></button>
-          <p class="modal-privacy"><i class="fa-solid fa-lock"></i> Compra discreta — não aparece no extrato com o nome do produto</p>
+          <button class="modal-submit-btn" onclick="submitPayment()">
+            Gerar PIX <i class="fa-brands fa-pix" style="margin-left: 8px"></i>
+          </button>
+          <p class="modal-privacy">
+            <i class="fa-solid fa-lock"></i> Compra discreta — não aparece no
+            extrato com o nome do produto
+          </p>
           <div class="trust-badges">
-            <div class="badge"><i class="fa-solid fa-shield-halved"></i> 100% Seguro</div>
-            <div class="badge"><i class="fa-solid fa-user-secret"></i> Sigilo Total</div>
-            <div class="badge"><i class="fa-solid fa-bolt"></i> Acesso Imediato</div>
+            <div class="badge">
+              <i class="fa-solid fa-shield-halved"></i> 100% Seguro
+            </div>
+            <div class="badge">
+              <i class="fa-solid fa-user-secret"></i> Sigilo Total
+            </div>
+            <div class="badge">
+              <i class="fa-solid fa-bolt"></i> Acesso Imediato
+            </div>
           </div>
         </div>
 
         <!-- PIX QR Code Area (Hidden Initially) -->
-        <div id="modalPix" style="display: none; flex-direction: column; align-items: center;">
-          <h4 style="margin: 0 0 16px; color: #333;">Escaneie o QR Code PIX</h4>
-          <img id="pixQrCodeImg" src="" alt="QR Code PIX" style="width: 200px; height: 200px; border-radius: 12px; border: 1px solid #ddd; margin-bottom: 16px; padding: 8px;" />
-          
-          <div class="input-group" style="width: 100%; margin-bottom: 0;">
+        <div
+          id="modalPix"
+          style="display: none; flex-direction: column; align-items: center"
+        >
+          <h4 style="margin: 0 0 16px; color: #333">Escaneie o QR Code PIX</h4>
+          <img
+            id="pixQrCodeImg"
+            src=""
+            alt="QR Code PIX"
+            style="
+              width: 200px;
+              height: 200px;
+              border-radius: 12px;
+              border: 1px solid #ddd;
+              margin-bottom: 16px;
+              padding: 8px;
+            "
+          />
+
+          <div class="input-group" style="width: 100%; margin-bottom: 0">
             <label>Ou copie o código (Pix Copia e Cola):</label>
-            <div style="display: flex; gap: 8px; width: 100%;">
-              <input type="text" id="pixCopiaEColaText" readonly style="flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.85rem; outline: none; background: #f9f9f9; color: #555;" />
-              <button id="copyPixBtn" onclick="copyPix()" style="background: var(--primary-color); color: #fff; border: none; padding: 0 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: opacity 0.2s; white-space: nowrap;">
+            <div style="display: flex; gap: 8px; width: 100%">
+              <input
+                type="text"
+                id="pixCopiaEColaText"
+                readonly
+                style="
+                  flex: 1;
+                  padding: 12px;
+                  border: 1px solid #ddd;
+                  border-radius: 8px;
+                  font-size: 0.85rem;
+                  outline: none;
+                  background: #f9f9f9;
+                  color: #555;
+                "
+              />
+              <button
+                id="copyPixBtn"
+                onclick="copyPix()"
+                style="
+                  background: var(--primary-color);
+                  color: #fff;
+                  border: none;
+                  padding: 0 16px;
+                  border-radius: 8px;
+                  cursor: pointer;
+                  font-weight: 600;
+                  font-size: 0.9rem;
+                  transition: opacity 0.2s;
+                  white-space: nowrap;
+                "
+              >
                 Copiar
               </button>
             </div>
           </div>
-          <p style="font-size: 0.8rem; color: #888; text-align: center; margin-top: 16px;">O conteúdo será liberado imediatamente após a confirmação do pagamento.</p>
+          <p
+            style="
+              font-size: 0.8rem;
+              color: #888;
+              text-align: center;
+              margin-top: 16px;
+            "
+          >
+            O conteúdo será liberado imediatamente após a confirmação do
+            pagamento.
+          </p>
         </div>
       </div>
     </div>
@@ -319,12 +731,12 @@
       // ==========================================
       // LOADER LOGIC
       // ==========================================
-      (function() {
-        var overlay = document.getElementById('loaderOverlay');
-        setTimeout(function() {
-          overlay.classList.add('fade-out');
-          setTimeout(function() {
-            overlay.style.display = 'none';
+      (function () {
+        var overlay = document.getElementById("loaderOverlay");
+        setTimeout(function () {
+          overlay.classList.add("fade-out");
+          setTimeout(function () {
+            overlay.style.display = "none";
           }, 700);
         }, 900);
       })();
@@ -332,58 +744,75 @@
       // ==========================================
       // ANTI-INSPECTION SECURITY
       // ==========================================
-      (function() {
-        'use strict';
+      (function () {
+        "use strict";
 
         // Função que paralisa o site ao detectar inspeção
         function killPage() {
-          document.body.innerHTML = '';
-          document.documentElement.style.background = '#000';
-          window.location.replace('about:blank');
+          document.body.innerHTML = "";
+          document.documentElement.style.background = "#000";
+          window.location.replace("about:blank");
         }
 
         // 1. Bloqueia clique direito
-        document.addEventListener('contextmenu', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          return false;
-        }, true);
+        document.addEventListener(
+          "contextmenu",
+          function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+          },
+          true,
+        );
 
         // 2. Bloqueia atalhos de teclado
-        document.addEventListener('keydown', function(e) {
-          // F12
-          if (e.key === 'F12' || e.keyCode === 123) {
-            e.preventDefault();
-            e.stopPropagation();
-            killPage();
-            return false;
-          }
-          // Ctrl+Shift+I / Ctrl+Shift+J / Ctrl+Shift+C
-          if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
-            e.preventDefault();
-            e.stopPropagation();
-            killPage();
-            return false;
-          }
-          // Ctrl+U (ver fonte)
-          if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
-            e.preventDefault();
-            e.stopPropagation();
-            killPage();
-            return false;
-          }
-          // Ctrl+S (salvar)
-          if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
-            e.preventDefault();
-            e.stopPropagation();
-            return false;
-          }
-        }, true);
+        document.addEventListener(
+          "keydown",
+          function (e) {
+            // F12
+            if (e.key === "F12" || e.keyCode === 123) {
+              e.preventDefault();
+              e.stopPropagation();
+              killPage();
+              return false;
+            }
+            // Ctrl+Shift+I / Ctrl+Shift+J / Ctrl+Shift+C
+            if (
+              e.ctrlKey &&
+              e.shiftKey &&
+              (e.key === "I" ||
+                e.key === "i" ||
+                e.key === "J" ||
+                e.key === "j" ||
+                e.key === "C" ||
+                e.key === "c")
+            ) {
+              e.preventDefault();
+              e.stopPropagation();
+              killPage();
+              return false;
+            }
+            // Ctrl+U (ver fonte)
+            if (e.ctrlKey && (e.key === "U" || e.key === "u")) {
+              e.preventDefault();
+              e.stopPropagation();
+              killPage();
+              return false;
+            }
+            // Ctrl+S (salvar)
+            if (e.ctrlKey && (e.key === "S" || e.key === "s")) {
+              e.preventDefault();
+              e.stopPropagation();
+              return false;
+            }
+          },
+          true,
+        );
 
         // 4. Detecção via debugger trick
-        setInterval(function() {
+        setInterval(function () {
           var start = performance.now();
-          (function() {}).constructor('debugger')();
+          (function () {}).constructor("debugger")();
           var end = performance.now();
           if (end - start > 100) {
             killPage();
@@ -391,15 +820,14 @@
         }, 1000);
 
         // 5. Desabilita seleção de texto e arrastar imagens
-        document.addEventListener('selectstart', function(e) {
+        document.addEventListener("selectstart", function (e) {
           e.preventDefault();
           return false;
         });
-        document.addEventListener('dragstart', function(e) {
+        document.addEventListener("dragstart", function (e) {
           e.preventDefault();
           return false;
         });
-
       })();
     </script>
   </body>
