@@ -115,6 +115,13 @@ function acceptCookies() {
 
 // Funções do Modal Perfeito
 function openPaymentModal(title, defaultPrice) {
+  if (typeof gtag === 'function') {
+    gtag('event', 'checkout_aberto', {
+      produto: title,
+      valor: defaultPrice
+    });
+  }
+
   const modal = document.getElementById("paymentModal");
   const modalTitle = document.getElementById("modalTitle");
   const priceInput = document.getElementById("buyerValue");
@@ -184,6 +191,12 @@ async function submitPayment() {
     const data = await response.json();
 
     if (data.success) {
+      if (typeof gtag === 'function') {
+        gtag('event', 'pix_gerado', {
+          valor: value
+        });
+      }
+
       // Exibe a tela de PIX e oculta o formulário inicial
       document.getElementById("modalForm").style.display = "none";
       document.getElementById("modalPix").style.display = "flex";
