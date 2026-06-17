@@ -37,6 +37,53 @@ const API_URL = "https://only-ivf0.onrender.com";
 })();
 
 document.addEventListener("DOMContentLoaded", () => {
+  if (typeof gtag === 'function') {
+    gtag('event', 'visitante_pagina');
+  }
+
+  setTimeout(() => {
+    if (typeof gtag === 'function') gtag('event', 'tempo_30s');
+  }, 30000);
+
+  setTimeout(() => {
+    if (typeof gtag === 'function') gtag('event', 'tempo_60s');
+  }, 60000);
+
+  let scroll50Fired = false;
+  let scroll90Fired = false;
+  window.addEventListener('scroll', () => {
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (scrollHeight <= 0) return;
+    const scrollPercent = (window.scrollY / scrollHeight) * 100;
+    
+    if (scrollPercent >= 50 && !scroll50Fired) {
+      scroll50Fired = true;
+      if (typeof gtag === 'function') gtag('event', 'scroll_50');
+    }
+    if (scrollPercent >= 90 && !scroll90Fired) {
+      scroll90Fired = true;
+      if (typeof gtag === 'function') gtag('event', 'scroll_90');
+    }
+  });
+
+  const phoneInput = document.getElementById("buyerPhone");
+  if (phoneInput) {
+    phoneInput.addEventListener("blur", (e) => {
+      if (e.target.value.replace(/\D/g, '').length > 0) {
+        if (typeof gtag === 'function') gtag('event', 'telefone_preenchido');
+      }
+    }, { once: true });
+  }
+
+  const emailInput = document.getElementById("buyerEmail");
+  if (emailInput) {
+    emailInput.addEventListener("blur", (e) => {
+      if (e.target.value.trim().length > 0) {
+        if (typeof gtag === 'function') gtag('event', 'email_preenchido');
+      }
+    }, { once: true });
+  }
+
   // Verificação de cookies
   checkCookies();
 
@@ -116,9 +163,13 @@ function acceptCookies() {
 // Funções do Modal Perfeito
 function openPaymentModal(title, defaultPrice) {
   if (typeof gtag === 'function') {
+    gtag('event', 'plano_clicado', {
+      nome_plano: title,
+      valor_plano: defaultPrice
+    });
     gtag('event', 'checkout_aberto', {
-      produto: title,
-      valor: defaultPrice
+      nome_plano: title,
+      valor_plano: defaultPrice
     });
   }
 
@@ -159,6 +210,10 @@ function hideModalError() {
 }
 
 async function submitPayment() {
+  if (typeof gtag === 'function') {
+    gtag('event', 'botao_pix_clicado');
+  }
+
   hideModalError();
 
   const name = "Cliente VIP";
@@ -193,7 +248,8 @@ async function submitPayment() {
     if (data.success) {
       if (typeof gtag === 'function') {
         gtag('event', 'pix_gerado', {
-          valor: value
+          valor: value,
+          produto: title
         });
       }
 
@@ -217,6 +273,10 @@ async function submitPayment() {
 }
 
 function copyPix() {
+  if (typeof gtag === 'function') {
+    gtag('event', 'pix_copiado');
+  }
+
   const pixText = document.getElementById("pixCopiaEColaText");
   pixText.select();
   pixText.setSelectionRange(0, 99999);
