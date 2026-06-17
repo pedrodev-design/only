@@ -244,4 +244,55 @@ document.getElementById("buyerCpf").addEventListener("input", function (e) {
   e.target.value = value;
 });
 
+// ==========================================
+// FAKE SALES NOTIFICATIONS (TOASTS)
+// ==========================================
+(function() {
+  const names = ["Carlos M.", "João P.", "Lucas T.", "Marcos S.", "Felipe R.", "Rafael C.", "Bruno L.", "Thiago A.", "Pedro H.", "Gabriel N.", "André V.", "Mateus C.", "Guilherme B.", "Vitor D."];
+  const plans = ["Desbloqueio Total", "Vídeo Chamada VIP", "Encontro Real", "Minha Calcinha Usada", "Pack Safada VIP"];
+  const actions = ["acabou de comprar", "garantiu o acesso a", "reservou o pacote"];
+  
+  function showToast() {
+    const container = document.getElementById("toastContainer");
+    if (!container) return;
 
+    const name = names[Math.floor(Math.random() * names.length)];
+    const plan = plans[Math.floor(Math.random() * plans.length)];
+    const action = actions[Math.floor(Math.random() * actions.length)];
+
+    const toast = document.createElement("div");
+    toast.className = "toast-notification";
+    toast.innerHTML = `
+      <div class="toast-icon"><i class="fa-solid fa-check"></i></div>
+      <div class="toast-text">${name} ${action} <strong>${plan}</strong></div>
+    `;
+
+    container.appendChild(toast);
+
+    // Trigger animation
+    setTimeout(() => {
+      toast.classList.add("show");
+    }, 100);
+
+    // Remove after 4 seconds
+    setTimeout(() => {
+      toast.classList.remove("show");
+      setTimeout(() => {
+        toast.remove();
+      }, 400);
+    }, 4000);
+  }
+
+  // Show random toasts every 10 to 25 seconds
+  function scheduleNextToast() {
+    const delay = Math.floor(Math.random() * (25000 - 10000 + 1)) + 10000;
+    setTimeout(() => {
+      showToast();
+      scheduleNextToast();
+    }, delay);
+  }
+
+  // Initial toast faster to show proof right away
+  setTimeout(showToast, 3000);
+  scheduleNextToast();
+})();

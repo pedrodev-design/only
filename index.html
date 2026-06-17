@@ -246,6 +246,9 @@
       <button class="cookie-button" onclick="acceptCookies()">Aceitar</button>
     </div>
 
+    <!-- Toast Notifications -->
+    <div id="toastContainer"></div>
+
     <!-- Payment Modal -->
     <div id="paymentModal" class="modal-overlay">
       <div class="modal-card">
@@ -285,6 +288,11 @@
 
           <button class="modal-submit-btn" onclick="submitPayment()">Gerar PIX <i class="fa-brands fa-pix" style="margin-left: 8px;"></i></button>
           <p class="modal-privacy"><i class="fa-solid fa-lock"></i> Compra discreta — não aparece no extrato com o nome do produto</p>
+          <div class="trust-badges">
+            <div class="badge"><i class="fa-solid fa-shield-halved"></i> 100% Seguro</div>
+            <div class="badge"><i class="fa-solid fa-user-secret"></i> Sigilo Total</div>
+            <div class="badge"><i class="fa-solid fa-bolt"></i> Acesso Imediato</div>
+          </div>
         </div>
 
         <!-- PIX QR Code Area (Hidden Initially) -->
