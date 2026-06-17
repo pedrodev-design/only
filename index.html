@@ -77,63 +77,89 @@
           </p>
 
             <div class="subscription-group">
+            
+            <!-- Banner de escassez -->
+            <div class="scarcity-banner">
+              <span class="scarcity-fire">🔥</span>
+              <span class="scarcity-text">Promoção relâmpago — termina em <strong id="offerTimer">--:--</strong></span>
+            </div>
+
             <h4>Catálogo VIP Sem Censura</h4>
             
             <!-- Planos Mais Baratos -->
-            <button class="plan-btn product-btn" onclick="openPaymentModal('Pack Safada VIP', '34,90')">
-              <div style="text-align: left;">
-                <span class="plan-title">Pack Safada VIP</span>
-                <span style="display:block; font-size: 0.8rem; color: #555; margin-top: 4px; font-weight: 500;">Acesso imediato ao meu álbum secreto. Lingeries minúsculas e vídeos curtinhos bem quentes.</span>
-              </div>
-              <div style="text-align: right; margin-left: 8px;">
-                <span class="old-price">R$ 69,90</span>
-                <span class="plan-price">R$ 34,90</span>
-              </div>
-            </button>
-            <button class="plan-btn product-btn" onclick="openPaymentModal('Sessão de Sexting + Nudes', '79,90')">
-               <div style="text-align: left;">
-                <span class="plan-title">Sessão de Sexting + Nudes</span>
-                <span style="display:block; font-size: 0.8rem; color: #555; margin-top: 4px; font-weight: 500;">Me chama de sua putinha no chat. Eu te obedeço ao vivo e te mando fotos do jeito que você mandar.</span>
-              </div>
-              <div style="text-align: right; margin-left: 8px;">
-                <span class="old-price">R$ 149,90</span>
-                <span class="plan-price">R$ 79,90</span>
-              </div>
-            </button>
+            <div class="plan-wrapper popular">
+              <div class="popular-badge">⭐ MAIS POPULAR</div>
+              <button class="plan-btn product-btn" onclick="openPaymentModal('Pack Safada VIP', '34,90')">
+                <div style="text-align: left;">
+                  <span class="plan-title">Pack Safada VIP</span>
+                  <span style="display:block; font-size: 0.8rem; color: #555; margin-top: 4px; font-weight: 500;">Acesso imediato ao meu álbum secreto. Lingeries minúsculas e vídeos curtinhos bem quentes.</span>
+                </div>
+                <div style="text-align: right; margin-left: 8px;">
+                  <span class="old-price">R$ 69,90</span>
+                  <span class="plan-price">R$ 34,90</span>
+                </div>
+              </button>
+              <div class="social-proof"><i class="fa-solid fa-bolt"></i> 14 pessoas compraram hoje</div>
+            </div>
+
+            <div class="plan-wrapper">
+              <button class="plan-btn product-btn" onclick="openPaymentModal('Sessão de Sexting + Nudes', '79,90')">
+                 <div style="text-align: left;">
+                  <span class="plan-title">Sessão de Sexting + Nudes</span>
+                  <span style="display:block; font-size: 0.8rem; color: #555; margin-top: 4px; font-weight: 500;">Me chama de sua putinha no chat. Eu te obedeço ao vivo e te mando fotos do jeito que você mandar.</span>
+                </div>
+                <div style="text-align: right; margin-left: 8px;">
+                  <span class="old-price">R$ 149,90</span>
+                  <span class="plan-price">R$ 79,90</span>
+                </div>
+              </button>
+              <div class="social-proof"><i class="fa-solid fa-bolt"></i> 8 pessoas compraram hoje</div>
+            </div>
 
             <!-- Planos Intermediários -->
-            <button class="plan-btn product-btn" onclick="openPaymentModal('Vídeo Chamada Proibida', '149,90')">
-               <div style="text-align: left;">
-                <span class="plan-title">Vídeo Chamada Proibida (15 min)</span>
-                <span style="display:block; font-size: 0.8rem; color: #555; margin-top: 4px; font-weight: 500;">Onde a mágica acontece. Gemo seu nome e realizo sua fantasia ao vivo, sem frescura.</span>
-              </div>
-              <div style="text-align: right; margin-left: 8px;">
-                <span class="old-price">R$ 299,90</span>
-                <span class="plan-price">R$ 149,90</span>
-              </div>
-            </button>
+            <div class="plan-wrapper">
+              <button class="plan-btn product-btn" onclick="openPaymentModal('Vídeo Chamada Proibida', '149,90')">
+                 <div style="text-align: left;">
+                  <span class="plan-title">Vídeo Chamada Proibida (15 min)</span>
+                  <span style="display:block; font-size: 0.8rem; color: #555; margin-top: 4px; font-weight: 500;">Onde a mágica acontece. Gemo seu nome e realizo sua fantasia ao vivo, sem frescura.</span>
+                </div>
+                <div style="text-align: right; margin-left: 8px;">
+                  <span class="old-price">R$ 299,90</span>
+                  <span class="plan-price">R$ 149,90</span>
+                </div>
+              </button>
+              <div class="social-proof"><i class="fa-solid fa-bolt"></i> 3 vagas restantes hoje</div>
+            </div>
 
-            <!-- Planos Mais Caros (Criativos e Sexy) -->
-            <button class="plan-btn product-btn" onclick="openPaymentModal('Noite de Dominação Submissa', '299,90')">
-               <div style="text-align: left;">
-                <span class="plan-title">Noite de Dominação Submissa</span>
-                <span style="display:block; font-size: 0.8rem; color: #555; margin-top: 4px; font-weight: 500;">Seja meu dono virtual por uma noite inteira. Tudo que você mandar, eu faço e te gravo a prova.</span>
-              </div>
-              <div style="text-align: right; margin-left: 8px;">
-                <span class="old-price">R$ 599,90</span>
-                <span class="plan-price">R$ 299,90</span>
-              </div>
-            </button>
-            <button class="plan-btn product-btn" onclick="openPaymentModal('Final de Semana Namorada VIP', '599,90')">
-               <div style="text-align: left;">
-                <span class="plan-title">Final de Semana Namorada VIP</span>
-                <span style="display:block; font-size: 0.8rem; color: #555; margin-top: 4px; font-weight: 500;">Sua propriedade de Sexta a Domingo. Mando áudios, vídeos exclusivos de bom dia e fico à sua disposição.</span>
-              </div>
-              <div style="text-align: right; margin-left: 8px;">
-                <span class="old-price">R$ 1.199,90</span>
-                <span class="plan-price">R$ 599,90</span>
-              </div>
-            </button>
+            <!-- Planos Mais Caros -->
+            <div class="plan-wrapper">
+              <button class="plan-btn product-btn" onclick="openPaymentModal('Noite de Dominação Submissa', '299,90')">
+                 <div style="text-align: left;">
+                  <span class="plan-title">Noite de Dominação Submissa</span>
+                  <span style="display:block; font-size: 0.8rem; color: #555; margin-top: 4px; font-weight: 500;">Seja meu dono virtual por uma noite inteira. Tudo que você mandar, eu faço e te gravo a prova.</span>
+                </div>
+                <div style="text-align: right; margin-left: 8px;">
+                  <span class="old-price">R$ 599,90</span>
+                  <span class="plan-price">R$ 299,90</span>
+                </div>
+              </button>
+              <div class="social-proof"><i class="fa-solid fa-bolt"></i> 2 vagas restantes hoje</div>
+            </div>
+
+            <div class="plan-wrapper">
+              <button class="plan-btn product-btn" onclick="openPaymentModal('Final de Semana Namorada VIP', '599,90')">
+                 <div style="text-align: left;">
+                  <span class="plan-title">Final de Semana Namorada VIP</span>
+                  <span style="display:block; font-size: 0.8rem; color: #555; margin-top: 4px; font-weight: 500;">Sua propriedade de Sexta a Domingo. Mando áudios, vídeos exclusivos de bom dia e fico à sua disposição.</span>
+                </div>
+                <div style="text-align: right; margin-left: 8px;">
+                  <span class="old-price">R$ 1.199,90</span>
+                  <span class="plan-price">R$ 599,90</span>
+                </div>
+              </button>
+              <div class="social-proof"><i class="fa-solid fa-bolt"></i> Última vaga disponível</div>
+            </div>
+
           </div>
         </div>
       </div>

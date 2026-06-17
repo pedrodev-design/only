@@ -1,4 +1,41 @@
 const API_URL = "https://only-ivf0.onrender.com";
+
+// ==========================================
+// TIMER DE OFERTA (escassez)
+// ==========================================
+(function() {
+  var TIMER_KEY = 'cc_offer_end';
+  var now = Date.now();
+  var endTime = parseInt(sessionStorage.getItem(TIMER_KEY), 10);
+
+  // Se não existe ou já expirou, gera novo tempo entre 8 e 14 minutos
+  if (!endTime || endTime <= now) {
+    var mins = 8 + Math.floor(Math.random() * 7); // 8–14 min
+    endTime = now + mins * 60 * 1000;
+    sessionStorage.setItem(TIMER_KEY, endTime);
+  }
+
+  function updateTimer() {
+    var el = document.getElementById('offerTimer');
+    if (!el) return;
+    var remaining = Math.max(0, endTime - Date.now());
+    var m = Math.floor(remaining / 60000);
+    var s = Math.floor((remaining % 60000) / 1000);
+    el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+    if (remaining <= 0) {
+      // Reseta o timer silenciosamente
+      var newMins = 8 + Math.floor(Math.random() * 7);
+      endTime = Date.now() + newMins * 60 * 1000;
+      sessionStorage.setItem(TIMER_KEY, endTime);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    updateTimer();
+    setInterval(updateTimer, 1000);
+  });
+})();
+
 document.addEventListener("DOMContentLoaded", () => {
   // Verificação de cookies
   checkCookies();

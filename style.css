@@ -278,6 +278,93 @@ select#cultureSelectHeader {
   color: #000;
 }
 
+/* SCARCITY BANNER */
+.scarcity-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff4e5;
+  border: 1px solid #f6d49a;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  font-size: 0.88rem;
+  color: #7a4f00;
+}
+
+.scarcity-fire {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.scarcity-text strong {
+  font-weight: 800;
+  color: #c45000;
+  letter-spacing: 0.5px;
+}
+
+/* PLAN WRAPPER */
+.plan-wrapper {
+  margin-bottom: 4px;
+}
+
+.plan-wrapper .plan-btn {
+  margin-bottom: 0;
+  border-radius: 14px 14px 0 0;
+}
+
+.plan-wrapper:not(.popular) .plan-btn {
+  border-radius: 14px;
+  margin-bottom: 0;
+}
+
+.plan-wrapper:has(.social-proof) .plan-btn {
+  border-radius: 14px 14px 0 0;
+}
+
+/* POPULAR BADGE */
+.popular-badge {
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 10px 10px 0 0;
+  text-align: center;
+}
+
+.plan-wrapper.popular .plan-btn {
+  border-radius: 0 0 0 0;
+  border-top: none;
+}
+
+.plan-wrapper.popular .social-proof {
+  border-radius: 0 0 14px 14px;
+}
+
+/* SOCIAL PROOF */
+.social-proof {
+  background: #f7f7f7;
+  border: 1px solid #ececec;
+  border-top: none;
+  border-radius: 0 0 14px 14px;
+  padding: 7px 16px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.social-proof i {
+  color: #f6974d;
+  font-size: 0.75rem;
+}
+
 .accordion-header {
   display: flex;
   justify-content: space-between;
