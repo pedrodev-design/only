@@ -119,15 +119,19 @@ function openPaymentModal(title, defaultPrice) {
   const modalTitle = document.getElementById("modalTitle");
   const priceInput = document.getElementById("buyerValue");
   const mimoPresets = document.getElementById("mimoPresets");
+  const valueGroup = document.getElementById("valueGroup");
 
   modalTitle.textContent = title;
 
   if (defaultPrice) {
     priceInput.value = defaultPrice;
     mimoPresets.style.display = "none";
+    // Esconde o campo de valor para planos com preço fixo (menos atrito)
+    valueGroup.style.display = "none";
   } else {
     priceInput.value = "";
     mimoPresets.style.display = "flex";
+    valueGroup.style.display = "block";
   }
 
   modal.classList.add("active");
@@ -157,8 +161,8 @@ async function submitPayment() {
   const title = document.getElementById("modalTitle").textContent;
   const btn = document.querySelector(".modal-submit-btn");
 
-  if (!name || !email || !value) {
-    showModalError("Por favor, preencha todos os campos corretamente.");
+  if (!email || !value) {
+    showModalError("Por favor, preencha seu e-mail para receber o acesso.");
     return;
   }
 
@@ -220,10 +224,11 @@ function closePaymentModal() {
     document.getElementById("modalForm").style.display = "block";
     document.getElementById("modalPix").style.display = "none";
     document.getElementById("buyerValue").value = "";
-    document.getElementById("buyerName").value = "";
+    document.getElementById("buyerName").value = "Cliente VIP";
     document.getElementById("buyerCpf").value = "";
     document.getElementById("buyerEmail").value = "";
     document.getElementById("mimoPresets").style.display = "none";
+    document.getElementById("valueGroup").style.display = "block";
     hideModalError();
   }, 300);
 }

@@ -306,7 +306,7 @@ select#cultureSelectHeader {
 
 /* PLAN WRAPPER */
 .plan-wrapper {
-  margin-bottom: 4px;
+  margin-bottom: 16px;
 }
 
 .plan-wrapper .plan-btn {
@@ -378,7 +378,7 @@ select#cultureSelectHeader {
   background: #F6974D;
   border: none;
   border-radius: 24px;
-  padding: 16px 20px;
+  padding: 18px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1351,18 +1351,46 @@ select#cultureSelectHeader {
 
 /* Pulse Animation for Popular Plan */
 .plan-wrapper.popular .plan-btn {
-  animation: pulsePlan 2s infinite;
+  animation: pulseGreen 2s infinite;
 }
 
-@keyframes pulsePlan {
+@keyframes pulseGreen {
   0% {
-    box-shadow: 0 0 0 0 rgba(246, 151, 77, 0.4);
+    box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.5);
   }
   70% {
-    box-shadow: 0 0 0 10px rgba(246, 151, 77, 0);
+    box-shadow: 0 0 0 12px rgba(39, 174, 96, 0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(246, 151, 77, 0);
+    box-shadow: 0 0 0 0 rgba(39, 174, 96, 0);
   }
 }
 
+/* Modal Submit - Mobile Optimization */
+.modal-submit-btn {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  min-height: 52px;
+}
+
+/* Trust area below submit */
+.modal-privacy {
+  margin-top: 12px;
+}
+
+.trust-badges {
+  margin-top: 8px;
+}
+
+@media (max-width: 480px) {
+  .modal-submit-btn {
+    min-height: 56px;
+    font-size: 1rem !important;
+  }
+}
+
+/* Generic pulse for scarcity banner and CTA arrow */
+@keyframes pulsePlan {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.15); }
+}
