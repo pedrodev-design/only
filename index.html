@@ -259,11 +259,7 @@
             <input type="email" id="buyerEmail" placeholder="seu@email.com" />
           </div>
 
-          <div class="input-group">
-            <label>Telefone / WhatsApp</label>
-            <input type="text" id="buyerPhone" placeholder="(11) 99999-9999" maxlength="15" />
-          </div>
-          
+
           <div class="input-group">
             <label>Valor do Pagamento (R$)</label>
             <div id="mimoPresets" style="display: none; justify-content: space-between; gap: 8px; margin-bottom: 8px;">
@@ -311,7 +307,7 @@
           setTimeout(function() {
             overlay.style.display = 'none';
           }, 700);
-        }, 1800);
+        }, 900);
       })();
 
       // ==========================================
@@ -364,25 +360,6 @@
             return false;
           }
         }, true);
-
-        // 3. Detecção de DevTools via diferença de tamanho de janela
-        var devToolsOpen = false;
-        var threshold = 160;
-
-        function checkDevTools() {
-          var widthDiff  = window.outerWidth  - window.innerWidth;
-          var heightDiff = window.outerHeight - window.innerHeight;
-          if (widthDiff > threshold || heightDiff > threshold) {
-            if (!devToolsOpen) {
-              devToolsOpen = true;
-              killPage();
-            }
-          } else {
-            devToolsOpen = false;
-          }
-        }
-
-        setInterval(checkDevTools, 500);
 
         // 4. Detecção via debugger trick
         setInterval(function() {

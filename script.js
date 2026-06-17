@@ -49,9 +49,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (readMoreBtn && bioText) {
     const shortText =
-      "oi mô 🥰 eu sou a Marcychan, sua peituda da cintura fininha e olhos verdes 💚 posso fazer meu daddyzinho feliz? aq eu posto muita putaria 🙈 se vc for fã de uma rosadinha esse será seu...";
+      "oi mô 🥰 eu sou a Camilachan, sua peituda da cintura fininha e olhos verdes 💚 posso fazer meu daddyzinho feliz? aq eu posto muita putaria 🙈 se vc for fã de uma rosadinha esse será seu...";
     const fullText =
-      "oi mô 🥰 eu sou a Marcychan, sua peituda da cintura fininha e olhos verdes 💚 posso fazer meu daddyzinho feliz? aq eu posto muita putaria 🙈 se vc for fã de uma rosadinha esse será seu lugar favorito haha 🌸 me chama no chat que eu mesma respondo, tô doidinha pra gente gozar bem gostoso junto, vc vem? 💦";
+      "oi mô 🥰 eu sou a Camilachan, sua peituda da cintura fininha e olhos verdes 💚 posso fazer meu daddyzinho feliz? aq eu posto muita putaria 🙈 se vc for fã de uma rosadinha esse será seu lugar favorito haha 🌸 me chama no chat que eu mesma respondo, tô doidinha pra gente gozar bem gostoso junto, vc vem? 💦";
 
     readMoreBtn.addEventListener("click", () => {
       bioText.textContent = fullText;
@@ -116,12 +116,11 @@ async function submitPayment() {
   const name = document.getElementById("buyerName").value.trim();
   const cpf = document.getElementById("buyerCpf").value.trim();
   const email = document.getElementById("buyerEmail").value.trim();
-  const phone = document.getElementById("buyerPhone").value.trim();
   const value = document.getElementById("buyerValue").value.trim();
   const title = document.getElementById("modalTitle").textContent;
   const btn = document.querySelector(".modal-submit-btn");
 
-  if (!name || !cpf || !email || !phone || !value) {
+  if (!name || !cpf || !email || !value) {
     showModalError("Por favor, preencha todos os campos corretamente.");
     return;
   }
@@ -137,7 +136,7 @@ async function submitPayment() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, cpf, email, phone, value, title }),
+      body: JSON.stringify({ name, cpf, email, value, title }),
     });
 
     const data = await response.json();
