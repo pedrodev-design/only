@@ -69,11 +69,7 @@
             Camila Chan <i class="fa-solid fa-circle-check verified-badge"></i>
           </h1>
           <p class="username">@CamilaChan</p>
-          <div class="view-counter" id="viewCounter">
-            <span class="view-eye">👁️</span>
-            <span class="view-count" id="viewCount">...</span>
-            <span class="view-label">visitantes</span>
-          </div>
+
           <p class="bio" id="profileBio">
             <span class="bio-text">oi mô 🥰 eu sou a Camilachan, sua peituda da cintura fininha e olhos verdes 💚 posso fazer meu daddyzinho feliz? aq eu posto muita putaria 🙈 se vc for fã de uma rosadinha esse será seu...</span>
             <br>
@@ -303,54 +299,7 @@
 
     <!-- Custom JavaScript -->
     <script src="script.js"></script>
-    <!-- View Counter Script -->
-    <script>
-      (function() {
-        function formatNumber(n) {
-          if (n >= 1000000) return (n / 1000000).toFixed(1).replace('.', ',') + 'M';
-          if (n >= 1000)    return (n / 1000).toFixed(1).replace('.', ',') + 'K';
-          return n.toLocaleString('pt-BR');
-        }
 
-        function animateCount(el, target) {
-          var duration  = 1400;
-          var startTime = null;
-          function step(ts) {
-            if (!startTime) startTime = ts;
-            var progress = Math.min((ts - startTime) / duration, 1);
-            var eased    = 1 - Math.pow(1 - progress, 3);
-            el.textContent = formatNumber(Math.floor(eased * target));
-            if (progress < 1) requestAnimationFrame(step);
-            else el.textContent = formatNumber(target);
-          }
-          requestAnimationFrame(step);
-        }
-
-        function showCount(value) {
-          var el = document.getElementById('viewCount');
-          if (!el) return;
-          document.getElementById('viewCounter').style.display = 'inline-flex';
-          animateCount(el, value);
-        }
-
-        // Chama o endpoint do próprio servidor — incrementa +1 e retorna o total real
-        fetch('/api/views')
-          .then(function(r) { return r.json(); })
-          .then(function(data) {
-            if (data && typeof data.count === 'number') {
-              showCount(data.count);
-            }
-          })
-          .catch(function() {
-            // Fallback local caso o servidor não esteja disponível
-            var LS_KEY = 'cc_views_local';
-            var stored = parseInt(localStorage.getItem(LS_KEY), 10) || 0;
-            stored += 1;
-            localStorage.setItem(LS_KEY, stored);
-            showCount(stored);
-          });
-      })();
-    </script>
     <script>
       // ==========================================
       // LOADER LOGIC
