@@ -970,3 +970,43 @@ select#cultureSelectHeader {
   }
 }
 
+/* =============================================
+   VIEW COUNTER
+   ============================================= */
+.view-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin: 2px 0 12px;
+  padding: 4px 10px 4px 8px;
+  background: rgba(245, 129, 112, 0.07);
+  border: 1px solid rgba(245, 129, 112, 0.18);
+  border-radius: 20px;
+  transition: background 0.2s;
+}
+
+.view-counter:hover {
+  background: rgba(245, 129, 112, 0.13);
+}
+
+.view-eye {
+  font-size: 0.85rem;
+  line-height: 1;
+  filter: grayscale(0.15);
+}
+
+.view-count {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  letter-spacing: 0.01em;
+  min-width: 24px;
+}
+
+.view-label {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.01em;
+}
+

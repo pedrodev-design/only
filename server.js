@@ -1,8 +1,10 @@
 require("dotenv").config();
 const express = require("express");
-const cors = require("cors");
-const axios = require("axios");
-const QRCode = require("qrcode");
+const cors    = require("cors");
+const axios   = require("axios");
+const QRCode  = require("qrcode");
+const fs      = require("fs");
+const path    = require("path");
 
 const app = express();
 app.use(cors());
@@ -47,6 +49,33 @@ async function getSyncPayToken() {
     throw new Error("Falha na autenticação da SyncPay");
   }
 }
+
+// ==========================================
+// CONTADOR DE VISUALIZAÇÕES
+// Salva em views.json no disco — persiste entre reinicializações
+// ==========================================
+const VIEWS_FILE = path.join(__dirname, 'views.json');
+
+function readViews() {
+  try {
+    if (fs.existsSync(VIEWS_FILE)) {
+      const data = JSON.parse(fs.readFileSync(VIEWS_FILE, 'utf8'));
+      return typeof data.count === 'number' ? data.count : 0;
+    }
+  } catch (e) {}
+  return 0;
+}
+
+function saveViews(count) {
+  try { fs.writeFileSync(VIEWS_FILE, JSON.stringify({ count }), 'utf8'); } catch (e) {}
+}
+
+// GET /api/views — incrementa +1 e retorna o total
+app.get('/api/views', (req, res) => {
+  const newCount = readViews() + 1;
+  saveViews(newCount);
+  res.json({ count: newCount });
+});
 
 app.post("/api/pay", async (req, res) => {
   const { name, cpf, email, phone, value, title } = req.body;
