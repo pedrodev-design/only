@@ -162,8 +162,8 @@ async function submitPayment() {
   const title = document.getElementById("modalTitle").textContent;
   const btn = document.querySelector(".modal-submit-btn");
 
-  if (!email || !value) {
-    showModalError("Por favor, preencha seu e-mail para receber o acesso.");
+  if (!phone || !value) {
+    showModalError("Por favor, preencha seu WhatsApp para receber o acesso.");
     return;
   }
 
