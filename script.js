@@ -161,6 +161,8 @@ function acceptCookies() {
 }
 
 // Funções do Modal Perfeito
+let modalInterval;
+
 function openPaymentModal(title, defaultPrice) {
   if (typeof gtag === 'function') {
     gtag('event', 'plano_clicado', {
@@ -193,6 +195,24 @@ function openPaymentModal(title, defaultPrice) {
   }
 
   modal.classList.add("active");
+
+  // Iniciar timer do modal (5 minutos)
+  clearInterval(modalInterval);
+  let timeRemaining = 300;
+  const timerEl = document.getElementById("modalTimer");
+  if (timerEl) {
+    timerEl.textContent = "05:00";
+    modalInterval = setInterval(() => {
+      timeRemaining--;
+      if (timeRemaining <= 0) {
+        timeRemaining = 0;
+        clearInterval(modalInterval);
+      }
+      const m = Math.floor(timeRemaining / 60);
+      const s = timeRemaining % 60;
+      timerEl.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+    }, 1000);
+  }
 }
 
 function setPresetValue(val) {
@@ -290,6 +310,7 @@ function copyPix() {
 }
 
 function closePaymentModal() {
+  clearInterval(modalInterval);
   const modal = document.getElementById("paymentModal");
   modal.classList.remove("active");
 
