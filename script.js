@@ -154,8 +154,9 @@ function hideModalError() {
 async function submitPayment() {
   hideModalError();
 
-  const name = document.getElementById("buyerName").value.trim();
-  const cpf = document.getElementById("buyerCpf").value.trim();
+  const name = "Cliente VIP";
+  const phoneElement = document.getElementById("buyerPhone");
+  const phone = phoneElement ? phoneElement.value.trim() : "";
   const email = document.getElementById("buyerEmail").value.trim();
   const value = document.getElementById("buyerValue").value.trim();
   const title = document.getElementById("modalTitle").textContent;
@@ -177,7 +178,7 @@ async function submitPayment() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, cpf, email, value, title }),
+      body: JSON.stringify({ name, cpf: "", phone, email, value, title }),
     });
 
     const data = await response.json();
@@ -224,8 +225,7 @@ function closePaymentModal() {
     document.getElementById("modalForm").style.display = "block";
     document.getElementById("modalPix").style.display = "none";
     document.getElementById("buyerValue").value = "";
-    document.getElementById("buyerName").value = "Cliente VIP";
-    document.getElementById("buyerCpf").value = "";
+    if (document.getElementById("buyerPhone")) document.getElementById("buyerPhone").value = "";
     document.getElementById("buyerEmail").value = "";
     document.getElementById("mimoPresets").style.display = "none";
     document.getElementById("valueGroup").style.display = "block";
@@ -236,15 +236,16 @@ function closePaymentModal() {
 // ==========================
 // Máscaras de Input
 // ==========================
-document.getElementById("buyerCpf").addEventListener("input", function (e) {
+document.getElementById("buyerPhone").addEventListener("input", function (e) {
   let value = e.target.value.replace(/\D/g, "");
   if (value.length > 11) value = value.slice(0, 11);
+  if (value.length > 2) {
+    value = value.replace(/^(\d{2})(\d)/, "($1) $2");
+  }
   if (value.length > 9) {
-    value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d{2}).*/, "$1.$2.$3-$4");
-  } else if (value.length > 6) {
-    value = value.replace(/^(\d{3})(\d{3})(\d{1,3}).*/, "$1.$2.$3");
-  } else if (value.length > 3) {
-    value = value.replace(/^(\d{3})(\d{1,3}).*/, "$1.$2");
+    value = value.replace(/(\d{5})(\d)/, "$1-$2");
+  } else if (value.length > 8) {
+    value = value.replace(/(\d{4})(\d)/, "$1-$2");
   }
   e.target.value = value;
 });
