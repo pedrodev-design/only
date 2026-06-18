@@ -1962,10 +1962,50 @@
     </div>
 
     <script>
+      // =========================================
+      // FAKE CHAT LOGIC
+      // =========================================
+      
+      // We listen to the first interaction to "prime" the browser for audio
+      let audioPrimed = false;
+      function primeAudio() {
+        if (!audioPrimed) {
+          const audio = document.getElementById("notificacaoAudio");
+          if (audio) {
+            audio.volume = 0;
+            let playPromise = audio.play();
+            if (playPromise !== undefined) {
+              playPromise.then(() => {
+                audio.pause();
+                audio.currentTime = 0;
+                audio.volume = 1;
+                audioPrimed = true;
+                window.removeEventListener('click', primeAudio);
+                window.removeEventListener('touchstart', primeAudio);
+                window.removeEventListener('scroll', primeAudio);
+              }).catch(()=>{});
+            }
+          }
+        }
+      }
+      window.addEventListener('click', primeAudio, { once: true });
+      window.addEventListener('touchstart', primeAudio, { once: true });
+      window.addEventListener('scroll', primeAudio, { once: true });
+
+      function playNotification() {
+        const audio = document.getElementById("notificacaoAudio");
+        if (audio) {
+          audio.currentTime = 0;
+          audio.volume = 1;
+          audio.play().catch(e => {
+            console.log("Audio play failed: ", e);
+          });
+        }
+      }
+
       function startFakeChat() {
         const widget = document.getElementById("fakeChatWidget");
         const typing = document.getElementById("chatTyping");
-        const audio = document.getElementById("notificacaoAudio");
         const body = document.getElementById("fakeChatBody");
         
         if (!widget || widget.dataset.started) return;
@@ -1981,7 +2021,7 @@
           setTimeout(() => {
             typing.classList.remove("show");
             document.getElementById("msg1").classList.add("show");
-            if(audio) audio.play().catch(e=>console.log(e));
+            playNotification();
             
             // Typing 2
             setTimeout(() => {
@@ -1993,10 +2033,7 @@
               setTimeout(() => {
                 typing.classList.remove("show");
                 document.getElementById("msg2").classList.add("show");
-                if(audio) {
-                  audio.currentTime = 0;
-                  audio.play().catch(e=>console.log(e));
-                }
+                playNotification();
                 body.scrollTop = 999;
                 
                 // Typing 3
@@ -2009,10 +2046,7 @@
                   setTimeout(() => {
                     typing.classList.remove("show");
                     document.getElementById("msg3").classList.add("show");
-                    if(audio) {
-                      audio.currentTime = 0;
-                      audio.play().catch(e=>console.log(e));
-                    }
+                    playNotification();
                     body.scrollTop = 999;
                   }, 2500);
                 }, 1000);
