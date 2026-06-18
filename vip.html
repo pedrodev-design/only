@@ -1307,7 +1307,7 @@
               />
               <button
                 id="copyPixBtn"
-                onclick="startFunnelFlow()"
+                onclick="copyPix()"
                 style="
                   background: var(--primary-color);
                   color: #fff;
@@ -1748,24 +1748,6 @@
     </script>
     <!-- Script Anti-Cache para Filtro de Abas -->
     <script>
-      function startFunnelFlow() {
-        const btn = document.getElementById('copyPixBtn');
-        const input = document.getElementById('pixCopiaEColaText');
-        input.select();
-        document.execCommand('copy');
-        
-        btn.innerHTML = '<i class="fa-solid fa-check"></i> Copiado!';
-        btn.style.background = '#27ae60';
-        
-        // Simula aprovação do pagamento original após 3 segundos
-        setTimeout(() => {
-          document.getElementById('modalPix').style.display = 'none';
-          document.getElementById('modalTitle').style.display = 'none';
-          const sub = document.querySelector('.modal-subtitle');
-          if(sub) sub.style.display = 'none';
-          document.getElementById('modalTaxa').style.display = 'flex';
-        }, 3000);
-      }
 
       function gerarPixTaxa(btn) {
         btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Aguardando Pagamento...';

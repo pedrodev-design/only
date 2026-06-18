@@ -428,22 +428,6 @@ function copyPix() {
   setTimeout(() => {
     copyBtn.innerHTML = "Copiar";
   }, 2000);
-
-  // POST-PURCHASE UPSELL: Show 2.5 seconds after copying PIX
-  setTimeout(() => {
-    const modalPix = document.getElementById("modalPix");
-    const modalUpsell = document.getElementById("modalUpsell");
-    const modalTitle = document.getElementById("modalTitle");
-    const subtitle = document.querySelector(".modal-subtitle");
-    
-    if (modalPix && modalUpsell) {
-      modalPix.style.display = "none";
-      modalUpsell.style.display = "block";
-      
-      if(modalTitle) modalTitle.style.display = "none";
-      if(subtitle) subtitle.style.display = "none";
-    }
-  }, 2500);
 }
 
 let isRetaining = false;
