@@ -1882,6 +1882,9 @@
         0
       </div>
     </div>
+    
+    <!-- Audio para Notificações -->
+    <audio id="chatAudioFile" src="notificacao.mp3" preload="auto"></audio>
 
     <style>
       @keyframes pulse-red-dot {
@@ -1935,12 +1938,31 @@
       }, 3500);
 
       // FAKE CHAT DM SCRIPT
+      const chatAudio = document.getElementById("chatAudioFile");
+      // Desbloquear áudio na primeira interação do usuário (Regra do Chrome/Safari)
+      let audioUnlocked = false;
+      function unlockAudio() {
+        if (audioUnlocked) return;
+        if (chatAudio) {
+          chatAudio.play().then(() => {
+            chatAudio.pause();
+            chatAudio.currentTime = 0;
+            audioUnlocked = true;
+          }).catch(() => {});
+        }
+        document.removeEventListener('click', unlockAudio);
+        document.removeEventListener('touchstart', unlockAudio);
+        document.removeEventListener('scroll', unlockAudio);
+      }
+      document.addEventListener('click', unlockAudio);
+      document.addEventListener('touchstart', unlockAudio);
+      document.addEventListener('scroll', unlockAudio);
+
       setTimeout(() => {
         const chatPopup = document.getElementById("fakeChatPopup");
         const typing = document.getElementById("typingIndicator");
         const container = document.getElementById("chatMessagesContainer");
         const badge = document.getElementById("chatBadgeCount");
-        const chatAudio = new Audio("notificacao.mp3");
 
         if (chatPopup && typing && container) {
           chatPopup.style.bottom = "20px";
