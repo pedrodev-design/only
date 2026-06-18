@@ -1,4 +1,6 @@
-const API_URL = "https://only-ivf0.onrender.com";
+// Base64 obfuscation for security
+const _0x1a2b = "aHR0cHM6Ly9vbmx5LWl2ZjAub25yZW5kZXIuY29t";
+const API_URL = atob(_0x1a2b);
 
 // ==========================================
 // TIMER DE OFERTA (escassez)
@@ -162,6 +164,33 @@ function acceptCookies() {
 
 // Funções do Modal Perfeito
 let modalInterval;
+let basePriceStr = "";
+let bumpPriceStr = "";
+let bumpActive = false;
+
+function toggleOrderBump() {
+  bumpActive = !bumpActive;
+  const check = document.getElementById("orderBumpCheck");
+  const container = document.getElementById("orderBumpContainer");
+  const priceInput = document.getElementById("buyerValue");
+  if(check) check.checked = bumpActive;
+  
+  if (bumpActive) {
+    if(container) {
+      container.style.background = "#fadbd8";
+      container.style.border = "2px solid #e74c3c";
+    }
+    let base = parseFloat(basePriceStr.replace(',', '.'));
+    let bump = parseFloat(bumpPriceStr.replace(',', '.'));
+    if(priceInput) priceInput.value = (base + bump).toFixed(2).replace('.', ',');
+  } else {
+    if(container) {
+      container.style.background = "#fdf2f0";
+      container.style.border = "2px dashed #e74c3c";
+    }
+    if(priceInput) priceInput.value = basePriceStr;
+  }
+}
 
 function openPaymentModal(title, defaultPrice) {
   if (typeof gtag === 'function') {
@@ -181,17 +210,45 @@ function openPaymentModal(title, defaultPrice) {
   const mimoPresets = document.getElementById("mimoPresets");
   const valueGroup = document.getElementById("valueGroup");
 
+  const bumpContainer = document.getElementById("orderBumpContainer");
+  const bumpPriceDisplay = document.getElementById("bumpPriceDisplay");
+  const bumpDesc = document.getElementById("bumpDesc");
+  const check = document.getElementById("orderBumpCheck");
+  
+  bumpActive = false;
+  if(check) check.checked = false;
+  if(bumpContainer) {
+    bumpContainer.style.background = "#fdf2f0";
+    bumpContainer.style.border = "2px dashed #e74c3c";
+  }
+
   modalTitle.textContent = title;
 
   if (defaultPrice) {
     priceInput.value = defaultPrice;
+    basePriceStr = defaultPrice;
     mimoPresets.style.display = "none";
-    // Esconde o campo de valor para planos com preço fixo (menos atrito)
     valueGroup.style.display = "none";
+    
+    // Set dynamic order bump based on plan
+    if (defaultPrice === '29,90' || defaultPrice === '19,90' || defaultPrice === '14,90') {
+        bumpPriceStr = '9,90';
+        if(bumpPriceDisplay) bumpPriceDisplay.textContent = 'R$ 9,90';
+        if(bumpDesc) bumpDesc.textContent = 'Adicione o "Pack de Áudios Proibidos" por apenas R$ 9,90.';
+        if(bumpContainer) bumpContainer.style.display = 'block';
+    } else if (defaultPrice === '97,90') {
+        bumpPriceStr = '29,90';
+        if(bumpPriceDisplay) bumpPriceDisplay.textContent = 'R$ 29,90';
+        if(bumpDesc) bumpDesc.textContent = 'Adicione o "Vídeo Cheirando a Calcinha" por apenas R$ 29,90.';
+        if(bumpContainer) bumpContainer.style.display = 'block';
+    } else {
+        if(bumpContainer) bumpContainer.style.display = 'none';
+    }
   } else {
     priceInput.value = "";
     mimoPresets.style.display = "flex";
     valueGroup.style.display = "block";
+    if(bumpContainer) bumpContainer.style.display = 'none';
   }
 
   modal.classList.add("active");

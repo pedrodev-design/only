@@ -1418,6 +1418,19 @@
               Você não precisa preencher dados (E-mail ou Telefone). Seu acesso <strong>VITALÍCIO</strong> será ativado na mesma hora pelo sistema após o PIX. Qualquer dúvida, chame no Chat.
             </span>
           </div>
+          
+          <!-- ORDER BUMP / UPSELL -->
+          <div id="orderBumpContainer" style="display: none; background: #fdf2f0; border: 2px dashed #e74c3c; padding: 12px; border-radius: 6px; margin-bottom: 16px; cursor: pointer; transition: all 0.3s;" onclick="toggleOrderBump()">
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <input type="checkbox" id="orderBumpCheck" style="width: 20px; height: 20px; accent-color: #e74c3c; margin-top: 2px;" onclick="event.stopPropagation(); toggleOrderBump();">
+              <div>
+                <span style="display: block; font-size: 0.95rem; font-weight: 800; color: #e74c3c; margin-bottom: 2px;"><i class="fa-solid fa-gift"></i> OFERTA ÚNICA: + <span id="bumpPriceDisplay">R$ 14,90</span></span>
+                <span id="bumpDesc" style="font-size: 0.8rem; color: #333; line-height: 1.3; display: block;">
+                  Adicione o "Pack de Áudios Gemendo seu Nome" por apenas R$ 14,90.
+                </span>
+              </div>
+            </div>
+          </div>
 
           <div class="input-group" id="valueGroup">
             <label>Valor do Pagamento (R$)</label>
