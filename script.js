@@ -647,22 +647,3 @@ window.filterMedia = function(filter, btnElement) {
   }
 };
 
-function checkPaymentStatus() {
-  const btn = document.getElementById("checkPaymentBtn");
-  const errorDiv = document.getElementById("paymentStatusError");
-  if (!btn || !errorDiv) return;
-
-  const originalHtml = btn.innerHTML;
-  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> VERIFICANDO PAGAMENTO...';
-  btn.disabled = true;
-  errorDiv.style.display = 'none';
-
-  // Simula o tempo de requisição ao banco/gateway (2.5 a 4 segundos)
-  const delay = Math.floor(Math.random() * 1500) + 2500;
-  setTimeout(() => {
-    btn.innerHTML = originalHtml;
-    btn.disabled = false;
-    errorDiv.style.display = 'block';
-  }, delay);
-}
-
