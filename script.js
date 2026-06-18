@@ -231,7 +231,12 @@ function openPaymentModal(title, defaultPrice) {
     valueGroup.style.display = "none";
     
     // Set dynamic order bump based on plan
-    if (defaultPrice === '29,90' || defaultPrice === '19,90' || defaultPrice === '14,90') {
+    if (defaultPrice === '9,90') {
+        bumpPriceStr = '14,90';
+        if(bumpPriceDisplay) bumpPriceDisplay.textContent = 'R$ 14,90';
+        if(bumpDesc) bumpDesc.textContent = 'LEVAR TUDO: Adicione o "Acesso ao Drive Completo" com +250 mídias.';
+        if(bumpContainer) bumpContainer.style.display = 'block';
+    } else if (defaultPrice === '29,90' || defaultPrice === '19,90' || defaultPrice === '14,90') {
         bumpPriceStr = '9,90';
         if(bumpPriceDisplay) bumpPriceDisplay.textContent = 'R$ 9,90';
         if(bumpDesc) bumpDesc.textContent = 'Adicione o "Pack de Áudios Proibidos" por apenas R$ 9,90.';
@@ -244,6 +249,16 @@ function openPaymentModal(title, defaultPrice) {
     } else {
         if(bumpContainer) bumpContainer.style.display = 'none';
     }
+    
+    // Set dynamic downsell based on plan
+    const downsellLabel = document.getElementById("downsellPriceLabel");
+    if (downsellLabel) {
+       if (defaultPrice === '9,90') downsellLabel.textContent = 'R$ 4,90';
+       else if (defaultPrice === '19,90') downsellLabel.textContent = 'R$ 9,90';
+       else if (defaultPrice === '29,90') downsellLabel.textContent = 'R$ 14,90';
+       else downsellLabel.textContent = 'R$ 19,90';
+    }
+
   } else {
     priceInput.value = "";
     mimoPresets.style.display = "flex";
@@ -400,6 +415,24 @@ function closePaymentModal() {
   }
 }
 
+function acceptDownsell() {
+  const downsellLabel = document.getElementById("downsellPriceLabel");
+  if(downsellLabel) {
+    let newPrice = downsellLabel.textContent.replace('R$ ', '').trim();
+    document.getElementById("buyerValue").value = newPrice;
+  }
+  
+  // Return to form and submit
+  isRetaining = false;
+  document.getElementById("modalRetention").style.display = "none";
+  document.getElementById("modalTitle").style.display = "block";
+  const subtitle = document.querySelector(".modal-subtitle");
+  if(subtitle) subtitle.style.display = "block";
+  document.getElementById("modalForm").style.display = "block";
+  
+  submitPayment();
+}
+
 function continuePayment() {
   isRetaining = false;
   document.getElementById("modalRetention").style.display = "none";
@@ -512,3 +545,19 @@ document.getElementById("buyerPhone").addEventListener("input", function (e) {
   setTimeout(showToast, 3000);
   scheduleNextToast();
 })();
+
+window.loadMoreComments = function() {
+  const extra = document.getElementById("extraComments");
+  const btn = document.getElementById("loadMoreBtn");
+  
+  if(btn) {
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Carregando...';
+    setTimeout(() => {
+      if(extra) {
+        extra.style.display = "flex";
+        extra.style.animation = "slideUp 0.5s ease";
+      }
+      btn.style.display = "none";
+    }, 800);
+  }
+};

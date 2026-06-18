@@ -373,19 +373,19 @@
 
             <!-- Planos Agressivos de Baixo Ticket -->
 
-            <div class="plan-wrapper" style="display: none">
+            <div class="plan-wrapper">
               <button
                 class="plan-btn product-btn"
                 onclick="
                   openPaymentModal(
-                    'PACK INICIANTE: 15 Vídeos Amadores',
-                    '19,90',
+                    'PLANO TESTE: 3 Vídeos Exclusivos',
+                    '9,90',
                   )
                 "
               >
                 <div style="text-align: left">
                   <span class="plan-title"
-                    >PACK INICIANTE: 15 Vídeos Amadores</span
+                    >PLANO TESTE: 3 Vídeos Exclusivos</span
                   >
                   <ul
                     style="
@@ -403,14 +403,14 @@
                         class="fa-solid fa-check"
                         style="color: #27ae60; margin-right: 4px"
                       ></i>
-                      15 vídeos curtinhos e deliciosos
+                      3 vídeos curtinhos e picantes
                     </li>
                     <li>
                       <i
                         class="fa-solid fa-check"
                         style="color: #27ae60; margin-right: 4px"
                       ></i>
-                      Ideal pra quem quer testar e me conhecer
+                      Ideal pra quem quer "dar uma espiada"
                     </li>
                     <li>
                       <i
@@ -422,17 +422,10 @@
                   </ul>
                 </div>
                 <div style="text-align: right; margin-left: 8px">
-                  <span class="old-price">R$ 49,90</span>
-                  <span class="plan-price">R$ 19,90</span>
+                  <span class="old-price">R$ 29,90</span>
+                  <span class="plan-price">R$ 9,90</span>
                 </div>
               </button>
-              <div class="social-proof" style="color: #27ae60">
-                <i
-                  class="fa-solid fa-bolt"
-                  style="animation: pulse-green 2s infinite"
-                ></i>
-                Mais vendido para novos membros.
-              </div>
             </div>
 
             <div class="plan-wrapper">
@@ -880,8 +873,28 @@
                   </div>
                 </div>
                 
-                <button style="background: none; border: none; color: #f9af77; font-weight: 700; font-size: 0.85rem; cursor: pointer; padding: 8px 0; text-align: center; width: 100%; border-top: 1px solid #f0f0f0; margin-top: 4px;">
-                  Carregar mais comentários...
+                <div id="extraComments" style="display: none; flex-direction: column; gap: 16px; margin-top: 0;">
+                  <div style="display: flex; gap: 12px; align-items: flex-start">
+                    <div style="width: 38px; height: 38px; border-radius: 50%; background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #aaa; flex-shrink: 0;"><i class="fa-solid fa-user"></i></div>
+                    <div style="font-size: 0.85rem; color: #333; line-height: 1.4; width: 100%;">
+                      <span style="font-weight: 700; color: #111; display: flex; align-items: center; gap: 4px; margin-bottom: 4px;">carlos_vnt <i class="fa-solid fa-circle-check" style="color: #1DA1F2; font-size: 0.75rem;"></i></span>
+                      papo reto, o melhor investimento do mes. muito conteudo q eu nem sabia q existia.
+                      <span style="display: block; font-size: 0.75rem; color: #999; margin-top: 6px;">Há 1 dia</span>
+                    </div>
+                  </div>
+                  
+                  <div style="display: flex; gap: 12px; align-items: flex-start">
+                    <div style="width: 38px; height: 38px; border-radius: 50%; background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #aaa; flex-shrink: 0;"><i class="fa-solid fa-user"></i></div>
+                    <div style="font-size: 0.85rem; color: #333; line-height: 1.4; width: 100%;">
+                      <span style="font-weight: 700; color: #111; display: flex; align-items: center; gap: 4px; margin-bottom: 4px;">jp_silva <i class="fa-solid fa-circle-check" style="color: #1DA1F2; font-size: 0.75rem;"></i></span>
+                      tava com medo de ser golpe mas o pix caiu e o conteudo abriu na mesma hr! aprovado
+                      <span style="display: block; font-size: 0.75rem; color: #999; margin-top: 6px;">Há 2 dias</span>
+                    </div>
+                  </div>
+                </div>
+
+                <button id="loadMoreBtn" onclick="loadMoreComments()" style="background: none; border: none; color: #f9af77; font-weight: 700; font-size: 0.85rem; cursor: pointer; padding: 8px 0; text-align: center; width: 100%; border-top: 1px solid #f0f0f0; margin-top: 4px;">
+                  <i class="fa-solid fa-rotate-right" style="margin-right: 6px;"></i> Carregar mais comentários...
                 </button>
               </div>
             </div>
@@ -1693,7 +1706,7 @@
             "
           ></i>
           <h3 style="margin: 0 0 10px; color: #111; font-size: 1.3rem">
-            Você vai perder seu acesso VIP!
+            ESPERA AÍ! Achou caro?
           </h3>
           <p
             style="
@@ -1703,13 +1716,11 @@
               margin: 0 0 20px;
             "
           >
-            Se você fechar esta página agora, o seu link do
-            <strong>vídeo vazado</strong> será expirado para sempre. Tem certeza
-            que deseja cancelar?
+            Só porque eu quero MUITO que você veja os meus vídeos hoje, vou te dar uma chance única. Leve um <strong style="color: #e74c3c;">Pacote Básico Reduzido</strong> por um valor simbólico de <strong style="color: #27ae60; font-size: 1.2rem;" id="downsellPriceLabel">R$ 4,90</strong>.
           </p>
 
           <button
-            onclick="continuePayment()"
+            onclick="acceptDownsell()"
             style="
               background: #27ae60;
               color: #fff;
@@ -1717,7 +1728,7 @@
               padding: 16px;
               border: none;
               border-radius: 24px;
-              font-weight: 700;
+              font-weight: 800;
               font-size: 1.05rem;
               margin-bottom: 14px;
               cursor: pointer;
@@ -1725,7 +1736,7 @@
               animation: pulse-green 2s infinite;
             "
           >
-            <i class="fa-solid fa-check"></i> NÃO, QUERO CONTINUAR
+            <i class="fa-solid fa-unlock"></i> QUERO O DESCONTO AGORA
           </button>
 
           <button
