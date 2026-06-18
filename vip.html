@@ -1815,7 +1815,7 @@
     </style>
 
     <!-- Custom JavaScript -->
-    <script src="script.js?v=2"></script>
+    <script src="script.js?v=3"></script>
 
     <script>
       // LIVE VIEWERS SCRIPT
@@ -1934,6 +1934,118 @@
           return false;
         });
       })();
+    </script>
+
+    <!-- FAKE CHAT AUDIO -->
+    <audio id="notificacaoAudio" src="img/notificacao.mp3" preload="auto"></audio>
+
+    <!-- FAKE CHAT WIDGET -->
+    <div class="fake-chat-container" id="fakeChatWidget" onclick="openChatPlan()" style="cursor: pointer;">
+      <div class="fake-chat-header">
+        <img src="img/avatar.jpeg" onerror="this.src='img/previas/3.jpg'" class="fake-chat-avatar" alt="Camila Chan">
+        <div class="fake-chat-info">
+          <span class="fake-chat-name">Camila Chan <i class="fa-solid fa-circle-check" style="color: #1DA1F2; font-size: 0.75rem;"></i></span>
+          <span class="fake-chat-status" id="fakeChatStatus">Online</span>
+        </div>
+        <button class="fake-chat-close" onclick="closeFakeChat(event)"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="fake-chat-body" id="fakeChatBody">
+        <div class="chat-msg" id="msg1">Oiii, vi que vc tá online aqui 👀</div>
+        <div class="chat-msg" id="msg2">Tô carente hoje... quer conversar cmg no privado agora?</div>
+        <div class="chat-msg" id="msg3" style="color: #e74c3c; font-weight: bold; cursor: pointer;">👉 Clica aqui pra liberar nosso chat VIP e a gente se fala por vídeo 😈🔥</div>
+        <div class="chat-typing" id="chatTyping">
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function startFakeChat() {
+        const widget = document.getElementById("fakeChatWidget");
+        const typing = document.getElementById("chatTyping");
+        const audio = document.getElementById("notificacaoAudio");
+        const body = document.getElementById("fakeChatBody");
+        
+        if (!widget || widget.dataset.started) return;
+        widget.dataset.started = "true";
+        
+        // Wait 2.5 seconds to pop up
+        setTimeout(() => {
+          widget.classList.add("active");
+          body.appendChild(typing);
+          typing.classList.add("show");
+          
+          // Msg 1 after 2.5s
+          setTimeout(() => {
+            typing.classList.remove("show");
+            document.getElementById("msg1").classList.add("show");
+            if(audio) audio.play().catch(e=>console.log(e));
+            
+            // Typing 2
+            setTimeout(() => {
+              body.appendChild(typing);
+              typing.classList.add("show");
+              body.scrollTop = 999;
+              
+              // Msg 2 after 3s
+              setTimeout(() => {
+                typing.classList.remove("show");
+                document.getElementById("msg2").classList.add("show");
+                if(audio) {
+                  audio.currentTime = 0;
+                  audio.play().catch(e=>console.log(e));
+                }
+                body.scrollTop = 999;
+                
+                // Typing 3
+                setTimeout(() => {
+                  body.appendChild(typing);
+                  typing.classList.add("show");
+                  body.scrollTop = 999;
+                  
+                  // Msg 3 after 2s
+                  setTimeout(() => {
+                    typing.classList.remove("show");
+                    document.getElementById("msg3").classList.add("show");
+                    if(audio) {
+                      audio.currentTime = 0;
+                      audio.play().catch(e=>console.log(e));
+                    }
+                    body.scrollTop = 999;
+                  }, 2500);
+                }, 1000);
+              }, 3000);
+            }, 1500);
+          }, 2500);
+        }, 2500);
+      }
+
+      function closeFakeChat(e) {
+        if (e) e.stopPropagation();
+        const widget = document.getElementById("fakeChatWidget");
+        if(widget) widget.classList.remove("active");
+      }
+
+      function openChatPlan() {
+        closeFakeChat();
+        if (typeof openPaymentModal === 'function') {
+          openPaymentModal('19,90', 'Liberação do Chat Privado 🔞');
+        }
+      }
+
+      function initFakeChat() {
+        const widget = document.getElementById("fakeChatWidget");
+        if (widget) {
+          startFakeChat();
+        } else {
+          // Retry if DOM not ready
+          setTimeout(initFakeChat, 500);
+        }
+      }
+
+      initFakeChat();
     </script>
   </body>
 </html>
