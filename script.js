@@ -546,7 +546,7 @@ document.getElementById("buyerPhone").addEventListener("input", function (e) {
   scheduleNextToast();
 })();
 
-window.loadMoreComments = function() {
+function loadMoreComments() {
   const extra = document.getElementById("extraComments");
   const btn = document.getElementById("loadMoreBtn");
   
@@ -560,4 +560,4 @@ window.loadMoreComments = function() {
       btn.style.display = "none";
     }, 800);
   }
-};
+}
