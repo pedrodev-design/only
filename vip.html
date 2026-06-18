@@ -1940,6 +1940,7 @@
         const typing = document.getElementById("typingIndicator");
         const container = document.getElementById("chatMessagesContainer");
         const badge = document.getElementById("chatBadgeCount");
+        const chatAudio = new Audio("notificacao.mp3");
 
         if (chatPopup && typing && container) {
           chatPopup.style.bottom = "20px";
@@ -1972,6 +1973,10 @@
                 msgSpan.style.width = "fit-content";
                 msgSpan.innerText = messages[currentMsg];
                 container.appendChild(msgSpan);
+                
+                // Play notification sound
+                chatAudio.currentTime = 0;
+                chatAudio.play().catch(e => console.log("Audio autoplay blocked"));
                 
                 if (badge) {
                   badge.style.display = "flex";
