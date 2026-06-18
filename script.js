@@ -309,18 +309,61 @@ function copyPix() {
   }, 2000);
 }
 
+let isRetaining = false;
+
 function closePaymentModal() {
+  if (!isRetaining) {
+    isRetaining = true;
+    
+    document.getElementById("modalForm").style.display = "none";
+    document.getElementById("modalPix").style.display = "none";
+    document.getElementById("modalRetention").style.display = "flex";
+    
+    document.getElementById("modalTitle").style.display = "none";
+    const subtitle = document.querySelector(".modal-subtitle");
+    if(subtitle) subtitle.style.display = "none";
+    const closeBtn = document.querySelector(".modal-close");
+    if(closeBtn) closeBtn.style.display = "none";
+  }
+}
+
+function continuePayment() {
+  isRetaining = false;
+  document.getElementById("modalRetention").style.display = "none";
+  document.getElementById("modalTitle").style.display = "block";
+  const subtitle = document.querySelector(".modal-subtitle");
+  if(subtitle) subtitle.style.display = "block";
+  const closeBtn = document.querySelector(".modal-close");
+  if(closeBtn) closeBtn.style.display = "block";
+  
+  const pixCopiaECola = document.getElementById("pixCopiaEColaText");
+  if (pixCopiaECola && pixCopiaECola.value.length > 10) {
+     document.getElementById("modalPix").style.display = "flex";
+  } else {
+     document.getElementById("modalForm").style.display = "block";
+  }
+}
+
+function forceCloseModal() {
+  isRetaining = false;
   clearInterval(modalInterval);
   const modal = document.getElementById("paymentModal");
   modal.classList.remove("active");
 
-  // Reseta o modal de volta para o estado de formulário
   setTimeout(() => {
+    document.getElementById("modalRetention").style.display = "none";
     document.getElementById("modalForm").style.display = "block";
     document.getElementById("modalPix").style.display = "none";
+    document.getElementById("modalTitle").style.display = "block";
+    const subtitle = document.querySelector(".modal-subtitle");
+    if(subtitle) subtitle.style.display = "block";
+    const closeBtn = document.querySelector(".modal-close");
+    if(closeBtn) closeBtn.style.display = "block";
+
     document.getElementById("buyerValue").value = "";
     if (document.getElementById("buyerPhone")) document.getElementById("buyerPhone").value = "";
     document.getElementById("buyerEmail").value = "";
+    if (document.getElementById("pixCopiaEColaText")) document.getElementById("pixCopiaEColaText").value = "";
     document.getElementById("mimoPresets").style.display = "none";
     document.getElementById("valueGroup").style.display = "block";
     hideModalError();
