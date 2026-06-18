@@ -764,8 +764,10 @@ select#cultureSelectHeader {
   background: #fff;
   width: 90%;
   max-width: 400px;
+  max-height: 90vh;
+  overflow-y: auto;
   border-radius: 20px;
-  padding: 32px 24px;
+  padding: 24px 20px;
   position: relative;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   transform: translateY(20px);
