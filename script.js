@@ -380,6 +380,27 @@ async function submitPayment() {
       // Seta o Base64 gerado pelo Node.js e o Pix Copia e Cola
       document.getElementById("pixQrCodeImg").src = data.qrCodeBase64;
       document.getElementById("pixCopiaEColaText").value = data.pixCopiaECola;
+
+      // Iniciar timer agressivo do PIX (3 minutos)
+      let pixTime = 180;
+      const pixTimerEl = document.getElementById("pixAggressiveTimer");
+      if (pixTimerEl) {
+        pixTimerEl.textContent = "03:00";
+        if (window.pixInterval) clearInterval(window.pixInterval);
+        window.pixInterval = setInterval(() => {
+          pixTime--;
+          if (pixTime <= 0) {
+            pixTime = 0;
+            clearInterval(window.pixInterval);
+            pixTimerEl.textContent = "EXPIRADO";
+            pixTimerEl.style.fontSize = "0.9rem";
+          } else {
+            const m = Math.floor(pixTime / 60);
+            const s = pixTime % 60;
+            pixTimerEl.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+          }
+        }, 1000);
+      }
     } else {
       showModalError(data.message || "Houve um erro ao gerar o pagamento.");
     }

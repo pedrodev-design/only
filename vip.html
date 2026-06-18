@@ -1236,94 +1236,51 @@
           id="modalPix"
           style="display: none; flex-direction: column; align-items: center"
         >
-          <div style="background: #e74c3c; width: 100%; padding: 8px; border-radius: 8px; text-align: center; margin-bottom: 12px; animation: pulsePlan 1.5s infinite;">
-            <span style="color: #fff; font-weight: 900; font-size: 0.85rem;"><i class="fa-solid fa-fire"></i> ÚLTIMA ETAPA! Sua vaga foi reservada.</span>
+          <!-- Aggressive timer -->
+          <div style="background: #fff3cd; border: 1px solid #ffeeba; border-left: 4px solid #e74c3c; padding: 12px; border-radius: 6px; width: 100%; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 8px">
+              <i class="fa-solid fa-triangle-exclamation" style="color: #e74c3c; font-size: 1.2rem; animation: pulsePlan 1s infinite;"></i>
+              <span style="color: #856404; font-size: 0.85rem; font-weight: 800; line-height: 1.2;">
+                PAGAMENTO PENDENTE<br />
+                <span style="font-size: 0.75rem; font-weight: 600; color: #e74c3c;">O QR Code expira em:</span>
+              </span>
+            </div>
+            <div style="background: #e74c3c; color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 1.1rem; font-weight: 900; font-variant-numeric: tabular-nums;" id="pixAggressiveTimer">
+              03:00
+            </div>
           </div>
 
-          <h4 style="margin: 0 0 4px; color: #111; font-size: 1.15rem; font-weight: 800;">Realize o Pagamento</h4>
-          <p
-            style="
-              font-size: 0.8rem;
-              color: #555;
-              font-weight: 600;
-              margin: 0 0 12px;
-              text-align: center;
-              line-height: 1.3;
-            "
-          >
-            O conteúdo será desbloqueado de forma automática em <strong style="color:#27ae60;">até 30 segundos</strong> após o PIX.
-          </p>
+          <h4 style="margin: 0 0 16px; color: #111; font-size: 1.15rem; font-weight: 800; text-align: center;">Efetue o pagamento agora</h4>
+
+          <div style="background: #fdfdfd; border: 1px solid #eee; padding: 16px; border-radius: 12px; width: 100%; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+            <span style="display: flex; align-items: center; gap: 6px; font-weight: 900; color: #2c3e50; font-size: 0.95rem; margin-bottom: 10px;">
+              <i class="fa-solid fa-circle-question" style="color: #f58170;"></i> Como pagar:
+            </span>
+            <ol style="margin: 0; padding-left: 20px; font-size: 0.85rem; color: #555; line-height: 1.6; font-weight: 500;">
+              <li>Abra o app do seu banco ou carteira digital.</li>
+              <li>Escolha pagar via <strong>Pix</strong>.</li>
+              <li>Escaneie o <strong>QR Code</strong> abaixo.</li>
+              <li>Confirme o pagamento para liberar.</li>
+            </ol>
+          </div>
+
           <img
             id="pixQrCodeImg"
             src=""
             alt="QR Code PIX"
             style="
-              width: 160px;
-              height: 160px;
+              width: 180px;
+              height: 180px;
               border-radius: 10px;
               border: 1px solid #ddd;
-              margin-bottom: 12px;
+              margin-bottom: 16px;
               padding: 6px;
+              box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             "
           />
 
-          <div
-            style="
-              background: #fdfdfd;
-              border: 1px solid #eee;
-              padding: 12px;
-              border-radius: 12px;
-              width: 100%;
-              text-align: left;
-              margin-bottom: 12px;
-            "
-          >
-            <div style="margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px dashed #eee;">
-              <span
-                style="
-                  display: flex;
-                  align-items: center;
-                  gap: 4px;
-                  font-weight: 800;
-                  color: #27ae60;
-                  font-size: 0.85rem;
-                  margin-bottom: 4px;
-                "
-                ><i class="fa-solid fa-user-shield"></i> PRIVACIDADE GARANTIDA</span
-              >
-              <ul style="margin: 0; padding-left: 18px; font-size: 0.75rem; color: #555; line-height: 1.3;">
-                <li style="margin-bottom: 3px;"><strong>Sem Cadastro:</strong> Anonimato protegido.</li>
-                <li style="margin-bottom: 3px;"><strong>Liberação Imediata:</strong> Abre no mesmo instante.</li>
-                <li><strong>Chat Seguro:</strong> Negociações encriptadas.</li>
-              </ul>
-            </div>
-            
-            <span
-              style="
-                display: flex;
-                align-items: center;
-                gap: 4px;
-                font-weight: 800;
-                color: #f39c12;
-                font-size: 0.8rem;
-                margin-bottom: 4px;
-              "
-              ><i class="fa-solid fa-circle-info"></i> COMO PAGAR AGORA:</span
-            >
-            <span
-              style="
-                font-size: 0.75rem;
-                color: #555;
-                line-height: 1.3;
-                display: block;
-              "
-              >1. Clique em "Copiar" abaixo.<br />2. Abra o app do banco e
-              vá em "PIX Copia e Cola".</span
-            >
-          </div>
-
           <div class="input-group" style="width: 100%; margin-bottom: 0">
-            <label>Ou copie o código (Pix Copia e Cola):</label>
+            <label style="font-weight: 800; color: #333; font-size: 0.9rem; margin-bottom: 6px; display: block;">Código de pagamento Pix (Cópia e Cola):</label>
             <div style="display: flex; gap: 8px; width: 100%">
               <input
                 type="text"
