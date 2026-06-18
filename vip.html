@@ -1462,94 +1462,11 @@
         }, 900);
       })();
 
+      /*
       // ==========================================
-      // ANTI-INSPECTION SECURITY
+      // ANTI-INSPECTION SECURITY (Temporarily Disabled for Debugging)
       // ==========================================
-      (function () {
-        "use strict";
-
-        // Função que paralisa o site ao detectar inspeção
-        function killPage() {
-          document.body.innerHTML = "";
-          document.documentElement.style.background = "#000";
-          window.location.replace("about:blank");
-        }
-
-        // 1. Bloqueia clique direito
-        document.addEventListener(
-          "contextmenu",
-          function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            return false;
-          },
-          true,
-        );
-
-        // 2. Bloqueia atalhos de teclado
-        document.addEventListener(
-          "keydown",
-          function (e) {
-            // F12
-            if (e.key === "F12" || e.keyCode === 123) {
-              e.preventDefault();
-              e.stopPropagation();
-              killPage();
-              return false;
-            }
-            // Ctrl+Shift+I / Ctrl+Shift+J / Ctrl+Shift+C
-            if (
-              e.ctrlKey &&
-              e.shiftKey &&
-              (e.key === "I" ||
-                e.key === "i" ||
-                e.key === "J" ||
-                e.key === "j" ||
-                e.key === "C" ||
-                e.key === "c")
-            ) {
-              e.preventDefault();
-              e.stopPropagation();
-              killPage();
-              return false;
-            }
-            // Ctrl+U (ver fonte)
-            if (e.ctrlKey && (e.key === "U" || e.key === "u")) {
-              e.preventDefault();
-              e.stopPropagation();
-              killPage();
-              return false;
-            }
-            // Ctrl+S (salvar)
-            if (e.ctrlKey && (e.key === "S" || e.key === "s")) {
-              e.preventDefault();
-              e.stopPropagation();
-              return false;
-            }
-          },
-          true,
-        );
-
-        // 4. Detecção via debugger trick
-        setInterval(function () {
-          var start = performance.now();
-          (function () {}).constructor("debugger")();
-          var end = performance.now();
-          if (end - start > 100) {
-            killPage();
-          }
-        }, 1000);
-
-        // 5. Desabilita seleção de texto e arrastar imagens
-        document.addEventListener("selectstart", function (e) {
-          e.preventDefault();
-          return false;
-        });
-        document.addEventListener("dragstart", function (e) {
-          e.preventDefault();
-          return false;
-        });
-      })();
+      */
     </script>
 
     <!-- FAKE CHAT AUDIO -->
