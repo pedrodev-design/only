@@ -13,10 +13,11 @@ app.use(express.json());
 app.use(express.static(__dirname));
 
 // ==========================================
-// CREDENCIAIS DA API PAYSYNC
+// CREDENCIAIS DA API FLEVOPAY
 // Carregadas de forma segura através do .env
 // ==========================================
-const PAYSYNC_KEY = process.env.PAYSYNC_KEY;
+const FLEVOPAY_PUBLIC_KEY = process.env.FLEVOPAY_PUBLIC_KEY;
+const FLEVOPAY_SECRET_KEY = process.env.FLEVOPAY_SECRET_KEY;
 
 // ==========================================
 // CONTADOR DE VISUALIZAÇÕES
@@ -45,6 +46,20 @@ app.get('/api/views', (req, res) => {
   res.json({ count: newCount });
 });
 
+// Helper para gerar CPF válido para gateways que exigem
+function generateCPF() {
+  const rnd = (n) => Math.round(Math.random() * n);
+  const mod = (dividendo, divisor) => Math.round(dividendo - (Math.floor(dividendo / divisor) * divisor));
+  const n = Array(9).fill('').map(() => rnd(9));
+  let d1 = n.reduce((total, number, index) => (total + (number * (10 - index))), 0);
+  d1 = 11 - mod(d1, 11);
+  if (d1 >= 10) d1 = 0;
+  let d2 = (d1 * 2) + n.reduce((total, number, index) => (total + (number * (11 - index))), 0);
+  d2 = 11 - mod(d2, 11);
+  if (d2 >= 10) d2 = 0;
+  return `${n.join('')}${d1}${d2}`;
+}
+
 app.post("/api/pay", async (req, res) => {
   const { name, cpf, email, phone, value, title } = req.body;
 
@@ -53,34 +68,60 @@ app.post("/api/pay", async (req, res) => {
     const valueCents = Math.round(pixValue * 100);
     
     console.log(
-      `[PaySync PIX] Solicitando cobrança para ${name}. Valor: R$ ${pixValue} (${valueCents} cents) - Produto: ${title}`,
+      `[Flevopay PIX] Solicitando cobrança. Valor: R$ ${pixValue} (${valueCents} cents) - Produto: ${title}`,
     );
 
-    // Gerar email aleatório
+    // Gerar email e CPF aleatório para evitar bloqueios de validação do gateway
     const randomNum = Math.floor(Math.random() * 999999);
     const fakeEmail = `cliente${randomNum}@checkout.com`;
+    const fakeCpf = generateCPF();
 
-    // Chamada REAL para a API da PaySync
+    const authHeader = "Basic " + Buffer.from(`${FLEVOPAY_PUBLIC_KEY}:${FLEVOPAY_SECRET_KEY}`).toString("base64");
+
+    // Chamada REAL para a API da Flevopay
     const response = await axios.post(
-      "https://api.usepaysync.com/v1/charges",
+      "https://api.flevopay.com/v1/payment-transaction/create",
       {
-        valueCents: valueCents,
-        description: title || "Acesso VIP",
+        amount: valueCents,
+        payment_method: "pix",
+        postback_url: "https://only-ivf0.onrender.com/webhook",
         customer: {
           name: "Visitante Premium",
-          email: fakeEmail
+          email: fakeEmail,
+          document: {
+            type: "cpf",
+            number: fakeCpf
+          }
+        },
+        items: [
+          {
+            title: title || "Acesso VIP",
+            unit_price: valueCents,
+            quantity: 1,
+            tangible: false
+          }
+        ],
+        metadata: {
+          "provider_name": "Site Vendas"
         }
       },
       {
         headers: {
           Accept: "application/json",
-          Authorization: `Bearer ${PAYSYNC_KEY}`,
+          Authorization: authHeader,
           "Content-Type": "application/json",
         },
       },
     );
 
-    const pixCode = response.data.pix.brCode;
+    // A Flevopay retorna os dados do PIX (tentamos mapear as chaves mais comuns de retorno deles)
+    const pixData = response.data.pix || response.data;
+    const pixCode = pixData.qrcode || pixData.qr_code || pixData.payload || pixData.brCode || pixData.pix_code;
+
+    if (!pixCode) {
+      console.error("Payload retornado não continha o PIX:", response.data);
+      throw new Error("API da Flevopay retornou sucesso, mas não enviou a chave PIX.");
+    }
 
     // Gerar o QR Code em formato Base64 para o frontend
     const qrCodeBase64 = await QRCode.toDataURL(pixCode, {
@@ -96,18 +137,18 @@ app.post("/api/pay", async (req, res) => {
       message: "PIX gerado com sucesso",
       qrCodeBase64: qrCodeBase64,
       pixCopiaECola: pixCode,
-      identifier: response.data.paymentId,
+      identifier: response.data.id || response.data.transaction_id,
     });
   } catch (error) {
     console.error(
-      "Erro ao conectar com a PaySync:",
+      "Erro ao conectar com a Flevopay:",
       error.response ? error.response.data : error.message,
     );
     res.status(500).json({
       success: false,
       message:
-        error.response?.data?.error ||
-        "Erro ao gerar o PIX. Verifique os dados digitados.",
+        error.response?.data?.message || error.response?.data?.error ||
+        "Erro ao gerar o PIX na Flevopay. Verifique a integração.",
     });
   }
 });
