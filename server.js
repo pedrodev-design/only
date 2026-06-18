@@ -153,6 +153,37 @@ app.post("/api/pay", async (req, res) => {
   }
 });
 
+// Endpoint para consultar status do pagamento (Polling)
+app.get("/api/status/:id", async (req, res) => {
+  const transactionId = req.params.id;
+  try {
+    const authHeader = "Basic " + Buffer.from(`${FLEVOPAY_PUBLIC_KEY}:${FLEVOPAY_SECRET_KEY}`).toString("base64");
+    
+    const response = await axios.get(
+      `https://api.flevopay.com/v1/payment-transaction/info/${transactionId}`,
+      {
+        headers: {
+          Accept: "application/json",
+          Authorization: authHeader
+        }
+      }
+    );
+    
+    // Status esperados geralmente: "paid", "approved", "completed"
+    const status = response.data.status || "pending";
+    const isPaid = status === "paid" || status === "approved" || status === "completed";
+    
+    res.json({
+      success: true,
+      paid: isPaid,
+      status: status
+    });
+  } catch (error) {
+    console.error("Erro ao consultar status:", error.response?.data || error.message);
+    res.json({ success: false, paid: false, status: "error" });
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {

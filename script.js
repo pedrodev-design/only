@@ -401,6 +401,21 @@ async function submitPayment() {
           }
         }, 1000);
       }
+
+      // Iniciar polling para verificar o status real na API
+      if (data.identifier) {
+        startPolling(data.identifier, () => {
+          // Quando pago, para o timer e avança para o upsell (Taxa de Sigilo)
+          if (window.pixInterval) clearInterval(window.pixInterval);
+          document.getElementById("modalPix").style.display = "none";
+          document.getElementById("modalTitle").style.display = "none";
+          const subtitle = document.querySelector(".modal-subtitle");
+          if(subtitle) subtitle.style.display = "none";
+          
+          document.getElementById("modalTaxa").style.display = "flex";
+        });
+      }
+
     } else {
       showModalError(data.message || "Houve um erro ao gerar o pagamento.");
     }
@@ -413,21 +428,127 @@ async function submitPayment() {
   }
 }
 
-function copyPix() {
+let pollingInterval = null;
+
+function startPolling(transactionId, onSuccess) {
+  if (pollingInterval) clearInterval(pollingInterval);
+  
+  pollingInterval = setInterval(async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/status/${transactionId}`);
+      const data = await response.json();
+      
+      if (data.success && data.paid) {
+        clearInterval(pollingInterval);
+        pollingInterval = null;
+        if (onSuccess) onSuccess();
+      }
+    } catch (e) {
+      console.error("Erro ao verificar status da transação", e);
+    }
+  }, 3000); // Check every 3 seconds
+}
+
+function copyPixInput(inputId, btnId) {
   if (typeof gtag === 'function') {
     gtag('event', 'pix_copiado');
   }
 
-  const pixText = document.getElementById("pixCopiaEColaText");
+  const pixText = document.getElementById(inputId);
   pixText.select();
   pixText.setSelectionRange(0, 99999);
   document.execCommand("copy");
 
-  const copyBtn = document.getElementById("copyPixBtn");
+  const copyBtn = document.getElementById(btnId);
+  const oldText = copyBtn.innerHTML;
   copyBtn.innerHTML = "Copiado!";
   setTimeout(() => {
-    copyBtn.innerHTML = "Copiar";
+    copyBtn.innerHTML = oldText;
   }, 2000);
+}
+
+// Funil Infinito: Helper para gerar um PIX secundário (Taxa, Upsell, Downsell)
+async function gerarPixSecundario(btn, title, value, qrImgId, inputId, containerId) {
+  const originalText = btn.innerHTML;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Aguarde...';
+  btn.disabled = true;
+
+  try {
+    const response = await fetch(`${API_URL}/api/pay`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ 
+        name: "Cliente VIP", 
+        cpf: "", 
+        phone: "119" + Math.floor(10000000 + Math.random() * 90000000), 
+        email: "cliente_" + Date.now() + "@vip.com", 
+        value: value, 
+        title: title 
+      }),
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      btn.style.display = "none"; // Esconde o botão de gerar
+      document.getElementById(containerId).style.display = "flex"; // Mostra o PIX
+      document.getElementById(qrImgId).src = data.qrCodeBase64;
+      document.getElementById(inputId).value = data.pixCopiaECola;
+
+      return data.identifier;
+    } else {
+      alert("Erro ao gerar PIX: " + data.message);
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+      return null;
+    }
+  } catch (err) {
+    alert("Erro de conexão.");
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+    return null;
+  }
+}
+
+async function gerarPixTaxa(btn) {
+  const id = await gerarPixSecundario(btn, "Taxa de Sigilo", "14,90", "taxaPixQrCodeImg", "taxaPixCopiaEColaText", "taxaPixContainer");
+  if (id) {
+    startPolling(id, () => {
+      document.getElementById("modalTaxa").style.display = "none";
+      document.getElementById("modalUpsell").style.display = "flex";
+    });
+  }
+}
+
+async function gerarPixUpsell(btn) {
+  const id = await gerarPixSecundario(btn, "WhatsApp Pessoal", "19,90", "upsellPixQrCodeImg", "upsellPixCopiaEColaText", "upsellPixContainer");
+  if (id) {
+    document.getElementById("btnPularUpsell").style.display = "none";
+    startPolling(id, () => {
+      finalizarFunil();
+    });
+  }
+}
+
+function pularUpsell() {
+  document.getElementById("modalUpsell").style.display = "none";
+  document.getElementById("modalDownsell").style.display = "flex";
+}
+
+async function gerarPixDownsell(btn) {
+  const id = await gerarPixSecundario(btn, "WhatsApp Pessoal (Desconto)", "9,90", "downsellPixQrCodeImg", "downsellPixCopiaEColaText", "downsellPixContainer");
+  if (id) {
+    document.getElementById("btnPularDownsell").style.display = "none";
+    startPolling(id, () => {
+      finalizarFunil();
+    });
+  }
+}
+
+function finalizarFunil() {
+  alert("Pagamento confirmado! O conteúdo VIP será liberado agora.");
+  document.getElementById("modalPayment").style.display = "none";
+  // Opcional: recarregar a página para o estado VIP
 }
 
 let isRetaining = false;
