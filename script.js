@@ -268,6 +268,35 @@ function openPaymentModal(title, defaultPrice) {
 
   modal.classList.add("active");
 
+  // Trigger Fake Chat Notification
+  setTimeout(() => {
+    const fakeChatWidget = document.getElementById("fakeChatWidget");
+    const fakeChatBody = document.getElementById("fakeChatBody");
+    const audio = document.getElementById("notificacaoAudio");
+    
+    if (fakeChatWidget && fakeChatBody && audio) {
+      // Garante que o widget está visível
+      fakeChatWidget.classList.add("show");
+      
+      // Toca o som (se o navegador permitir autoplay baseado na interação do usuário)
+      audio.play().catch(e => console.log('Áudio bloqueado pelo navegador', e));
+      
+      // Cria a nova mensagem
+      const newMsg = document.createElement("div");
+      newMsg.className = "chat-msg";
+      newMsg.textContent = "nao vai falar comigo? 🥺";
+      fakeChatBody.appendChild(newMsg);
+      
+      // Rola para o final do chat
+      fakeChatBody.scrollTop = fakeChatBody.scrollHeight;
+      
+      // Anima a mensagem para aparecer suavemente
+      setTimeout(() => {
+        newMsg.classList.add("show");
+      }, 50);
+    }
+  }, 800); // Aparece 800ms após abrir o modal
+
   // Iniciar timer do modal (5 minutos)
   clearInterval(modalInterval);
   let timeRemaining = 300;
