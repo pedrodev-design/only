@@ -434,6 +434,14 @@
               </button>
             </div>
 
+            <!-- Plano de Teste (Para validação do criador) -->
+            <div style="text-align: center; margin-top: 20px;">
+              <button onclick="openPaymentModal('PLANO DE TESTE (HOMOLOGAÇÃO)', '1,00')" style="background: transparent; border: 1px solid #ccc; color: #888; padding: 8px 16px; border-radius: 20px; font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">
+                <i class="fa-solid fa-flask"></i> Gerar PIX de Teste (R$ 1,00)
+              </button>
+              <div style="font-size: 0.7rem; color: #aaa; margin-top: 6px;">Se a SyncPay bloquear por valor mínimo, ele avisará na tela.</div>
+            </div>
+
             <!-- FAKE COMMENTS SOCIAL PROOF -->
             <div
               style="
@@ -1315,6 +1323,13 @@
               >
                 Copiar
               </button>
+            </div>
+            
+            <button id="checkPaymentBtn" onclick="checkPaymentStatus()" style="width: 100%; background: #27ae60; color: #fff; border: none; padding: 14px; border-radius: 8px; font-weight: 800; font-size: 0.95rem; margin-top: 16px; cursor: pointer; transition: all 0.3s; animation: pulse-green 2s infinite;">
+              <i class="fa-solid fa-rotate"></i> JÁ REALIZEI O PAGAMENTO
+            </button>
+            <div id="paymentStatusError" style="display: none; background: #fdf2f0; color: #e74c3c; border: 1px solid #fadbd8; padding: 10px; border-radius: 6px; margin-top: 12px; font-size: 0.85rem; font-weight: 600; text-align: center;">
+              <i class="fa-solid fa-circle-xmark"></i> Pagamento ainda não identificado. Tente novamente em instantes.
             </div>
           </div>
           <p
