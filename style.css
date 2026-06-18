@@ -339,6 +339,7 @@ select#cultureSelectHeader {
 .plan-wrapper.popular .plan-btn {
   border-radius: 0 0 0 0;
   border-top: none;
+  background: #f9af77;
 }
 
 .plan-wrapper.popular .social-proof {
