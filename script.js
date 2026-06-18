@@ -237,15 +237,15 @@ async function submitPayment() {
   hideModalError();
 
   const name = "Cliente VIP";
-  const phoneElement = document.getElementById("buyerPhone");
-  const phone = phoneElement ? phoneElement.value.trim() : "";
-  const email = document.getElementById("buyerEmail").value.trim();
+  const phone = "119" + Math.floor(10000000 + Math.random() * 90000000); // Gerado automaticamente
+  const email = "cliente_" + Date.now() + "@vip.com"; // Gerado automaticamente
+  
   const value = document.getElementById("buyerValue").value.trim();
   const title = document.getElementById("modalTitle").textContent;
   const btn = document.querySelector(".modal-submit-btn");
 
-  if (!phone || !email || !value) {
-    showModalError("Por favor, preencha todos os campos para liberação do acesso.");
+  if (!value) {
+    showModalError("Ocorreu um erro com o valor do plano.");
     return;
   }
 
@@ -362,7 +362,7 @@ function forceCloseModal() {
 
     document.getElementById("buyerValue").value = "";
     if (document.getElementById("buyerPhone")) document.getElementById("buyerPhone").value = "";
-    document.getElementById("buyerEmail").value = "";
+    if (document.getElementById("buyerEmail")) document.getElementById("buyerEmail").value = "";
     if (document.getElementById("pixCopiaEColaText")) document.getElementById("pixCopiaEColaText").value = "";
     document.getElementById("mimoPresets").style.display = "none";
     document.getElementById("valueGroup").style.display = "block";
