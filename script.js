@@ -1,6 +1,5 @@
-// Base64 obfuscation for security
-const _0x1a2b = "aHR0cHM6Ly9vbmx5LWl2ZjAub25yZW5kZXIuY29t";
-const API_URL = atob(_0x1a2b);
+// URL do seu próprio backend (se rodando local, será vazio ou localhost)
+const API_URL = ""; // Deixe vazio se o frontend e backend rodam no mesmo servidor
 
 // ==========================================
 // TIMER DE OFERTA (escassez)
