@@ -13,42 +13,10 @@ app.use(express.json());
 app.use(express.static(__dirname));
 
 // ==========================================
-// CREDENCIAIS DA API SYNCPAY
+// CREDENCIAIS DA API PAYSYNC
 // Carregadas de forma segura através do .env
 // ==========================================
-const SYNCPAY_PUBLIC_KEY = process.env.SYNCPAY_PUBLIC_KEY;
-const SYNCPAY_PRIVATE_KEY = process.env.SYNCPAY_PRIVATE_KEY;
-
-// Guarda o token de acesso em memória para não gerar um novo a cada requisição (performance)
-let syncPayToken = null;
-
-async function getSyncPayToken() {
-  if (syncPayToken) return syncPayToken;
-
-  try {
-    const response = await axios.post(
-      "https://api.syncpayments.com.br/api/partner/v1/auth-token",
-      {
-        client_id: SYNCPAY_PUBLIC_KEY,
-        client_secret: SYNCPAY_PRIVATE_KEY,
-      },
-    );
-
-    syncPayToken =
-      response.data.token || response.data.access_token || response.data;
-    if (typeof syncPayToken === "object") {
-      // Fallback in case token is inside another property
-      syncPayToken = syncPayToken.access_token || syncPayToken.token;
-    }
-    return syncPayToken;
-  } catch (error) {
-    console.error(
-      "Erro ao gerar token SyncPay:",
-      error.response ? error.response.data : error.message,
-    );
-    throw new Error("Falha na autenticação da SyncPay");
-  }
-}
+const PAYSYNC_KEY = process.env.PAYSYNC_KEY;
 
 // ==========================================
 // CONTADOR DE VISUALIZAÇÕES
@@ -82,36 +50,37 @@ app.post("/api/pay", async (req, res) => {
 
   try {
     const pixValue = parseFloat(value.replace(",", "."));
+    const valueCents = Math.round(pixValue * 100);
+    
     console.log(
-      `[SyncPay PIX] Solicitando Cash-in para ${name}. Valor: R$ ${pixValue} - Produto: ${title}`,
+      `[PaySync PIX] Solicitando cobrança para ${name}. Valor: R$ ${pixValue} (${valueCents} cents) - Produto: ${title}`,
     );
 
-    // 1. Pega o token de autenticação
-    const token = await getSyncPayToken();
+    // Gerar email aleatório
+    const randomNum = Math.floor(Math.random() * 999999);
+    const fakeEmail = `cliente${randomNum}@checkout.com`;
 
-    // 2. Chamada REAL para a API da SyncPay (usando dados do frontend)
+    // Chamada REAL para a API da PaySync
     const response = await axios.post(
-      "https://api.syncpayments.com.br/api/partner/v1/cash-in",
+      "https://api.usepaysync.com/v1/charges",
       {
-        amount: pixValue,
-        description: title || "Mimo para Marcy Chan",
-        client: {
-          name: name,
-          cpf: cpf ? cpf.replace(/\D/g, "") : "", // Envia apenas números
-          email: email,
-          phone: phone ? phone.replace(/\D/g, "") : "", // Envia apenas números
-        },
+        valueCents: valueCents,
+        description: title || "Acesso VIP",
+        customer: {
+          name: "Visitante Premium",
+          email: fakeEmail
+        }
       },
       {
         headers: {
           Accept: "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${PAYSYNC_KEY}`,
           "Content-Type": "application/json",
         },
       },
     );
 
-    const pixCode = response.data.pix_code;
+    const pixCode = response.data.pix.brCode;
 
     // Gerar o QR Code em formato Base64 para o frontend
     const qrCodeBase64 = await QRCode.toDataURL(pixCode, {
@@ -127,22 +96,17 @@ app.post("/api/pay", async (req, res) => {
       message: "PIX gerado com sucesso",
       qrCodeBase64: qrCodeBase64,
       pixCopiaECola: pixCode,
-      identifier: response.data.identifier,
+      identifier: response.data.paymentId,
     });
   } catch (error) {
-    if (error.response && error.response.status === 401) {
-      // Se o token estiver expirado, apagamos da memória para renovar no próximo clique
-      syncPayToken = null;
-    }
-
     console.error(
-      "Erro ao conectar com a SyncPay:",
+      "Erro ao conectar com a PaySync:",
       error.response ? error.response.data : error.message,
     );
     res.status(500).json({
       success: false,
       message:
-        error.response?.data?.message ||
+        error.response?.data?.error ||
         "Erro ao gerar o PIX. Verifique os dados digitados.",
     });
   }
