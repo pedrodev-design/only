@@ -562,4 +562,38 @@ function loadMoreComments() {
   }
 }
 
+// Lógica das Abas de Mídia (Fotos, Vídeos, Ao Vivo)
+window.filterMedia = function(filter, btnElement) {
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const mediaItems = document.querySelectorAll('.media-item');
+  const mediaGrid = document.querySelector('.media-grid');
+  const aoVivoContent = document.getElementById('content-postagens');
 
+  // Remove active de todos
+  filterBtns.forEach(b => b.classList.remove('active'));
+  // Adiciona active no clicado
+  if(btnElement) btnElement.classList.add('active');
+
+  if (filter === 'todos') {
+    if(aoVivoContent) aoVivoContent.style.display = 'none';
+    if(mediaGrid) mediaGrid.style.display = 'grid';
+    mediaItems.forEach(item => item.style.display = 'block');
+  } else if (filter === 'fotos') {
+    if(aoVivoContent) aoVivoContent.style.display = 'none';
+    if(mediaGrid) mediaGrid.style.display = 'grid';
+    mediaItems.forEach(item => {
+      if (item.classList.contains('is-photo')) item.style.display = 'block';
+      else item.style.display = 'none';
+    });
+  } else if (filter === 'vídeos' || filter === 'videos') {
+    if(aoVivoContent) aoVivoContent.style.display = 'none';
+    if(mediaGrid) mediaGrid.style.display = 'grid';
+    mediaItems.forEach(item => {
+      if (item.classList.contains('is-video')) item.style.display = 'block';
+      else item.style.display = 'none';
+    });
+  } else if (filter === 'ao vivo') {
+    if(mediaGrid) mediaGrid.style.display = 'none';
+    if(aoVivoContent) aoVivoContent.style.display = 'block';
+  }
+};

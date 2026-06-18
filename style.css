@@ -1184,6 +1184,14 @@ select#cultureSelectHeader {
   background: rgba(0, 0, 0, 0.40);
 }
 
+.previa-central-overlay .lock-icon {
+  font-size: 42px;
+  color: #fff;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.6));
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: pulsePlan 1.5s infinite;
+}
+
 .previa-central-overlay .lock-icon-large {
   font-size: 60px;
   color: #fff;
@@ -1431,7 +1439,7 @@ select#cultureSelectHeader {
 }
 
 .fake-chat-header {
-  background: #f9af77;
+  background: #ffa08a;
   padding: 12px 16px;
   display: flex;
   align-items: center;
