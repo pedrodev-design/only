@@ -998,12 +998,9 @@ select#cultureSelectHeader {
     pointer-events: none;
   }
 
-  /* Avatar com anel vivo */
+  /* Avatar sem anel vivo */
   .avatar-wrapper {
-    box-shadow:
-      0 0 0 3px #fff,
-      0 0 0 5px rgba(245, 129, 112, 0.22),
-      0 4px 14px rgba(0,0,0,0.12);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
   }
 
   /* Botões de plano: shimmer + active nativo */
