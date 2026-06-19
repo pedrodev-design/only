@@ -1076,54 +1076,144 @@
             </ul>
           </div>
           
-          <!-- AGE VERIFICATION (PRE-SELL) -->
-          <div style="background: #fff3cd; border: 1px solid #ffeeba; border-radius: 8px; padding: 16px; margin-bottom: 16px; text-align: center;">
-            <i class="fa-solid fa-triangle-exclamation" style="font-size: 2rem; color: #d35400; margin-bottom: 10px;"></i>
-            <h4 style="margin: 0 0 10px; color: #856404; font-size: 1.1rem; font-weight: 800;">VERIFICAÇÃO DE IDADE</h4>
-            <p style="margin: 0 0 16px; font-size: 0.9rem; color: #856404; line-height: 1.4;">
-              O conteúdo a seguir é estritamente adulto (+18). Você confirma que possui mais de 18 anos de idade para visualizar e que concorda em pagar via PIX para liberar agora?
-            </p>
-            <button
-              class="modal-submit-btn"
-              onclick="submitPayment()"
-              style="
-                background: #27ae60;
-                color: #fff;
-                width: 100%;
-                padding: 18px;
-                border: none;
-                border-radius: 12px;
-                font-size: 1.1rem;
-                font-weight: 900;
-                cursor: pointer;
-                animation: pulse-green 2s infinite;
-                margin-bottom: 10px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                gap: 8px;
-              "
-            >
-              <i class="fa-solid fa-check-circle" style="font-size: 1.2rem;"></i> SIM, SOU MAIOR DE 18 ANOS
-            </button>
-            <button
-              onclick="closePaymentModal()"
-              style="
-                background: #f8d7da;
-                color: #721c24;
-                width: 100%;
-                padding: 12px;
-                border: none;
-                border-radius: 12px;
-                font-weight: 700;
-                font-size: 0.9rem;
-                cursor: pointer;
-              "
-            >
-              NÃO, TENHO MENOS DE 18 ANOS
-            </button>
-            <input type="hidden" id="buyerValue" value="19,90" />
+          <!-- ORDER BUMP / UPSELL -->
+          <div id="orderBumpContainer" style="display: none; background: #fdf2f0; border: 2px dashed #e74c3c; padding: 12px; border-radius: 6px; margin-bottom: 16px; cursor: pointer; transition: all 0.3s;" onclick="toggleOrderBump()">
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <input type="checkbox" id="orderBumpCheck" style="width: 20px; height: 20px; accent-color: #e74c3c; margin-top: 2px;" onclick="event.stopPropagation(); toggleOrderBump();">
+              <div>
+                <span style="display: block; font-size: 0.95rem; font-weight: 800; color: #e74c3c; margin-bottom: 2px;"><i class="fa-solid fa-gift"></i> OFERTA ÚNICA: + <span id="bumpPriceDisplay">R$ 14,90</span></span>
+                <span id="bumpDesc" style="font-size: 0.8rem; color: #333; line-height: 1.3; display: block;">
+                  Adicione o "Pack de Áudios Gemendo seu Nome" por apenas R$ 14,90.
+                </span>
+              </div>
+            </div>
           </div>
+
+          <div class="input-group" id="valueGroup">
+            <label>Valor do Pagamento (R$)</label>
+            <div
+              id="mimoPresets"
+              style="
+                display: none;
+                justify-content: space-between;
+                gap: 8px;
+                margin-bottom: 8px;
+              "
+            >
+              <button
+                type="button"
+                class="preset-btn"
+                onclick="setPresetValue('15,00')"
+              >
+                R$ 15
+              </button>
+              <button
+                type="button"
+                class="preset-btn"
+                onclick="setPresetValue('20,00')"
+              >
+                R$ 20
+              </button>
+              <button
+                type="button"
+                class="preset-btn"
+                onclick="setPresetValue('50,00')"
+              >
+                R$ 50
+              </button>
+              <button
+                type="button"
+                class="preset-btn"
+                onclick="setPresetValue('100,00')"
+              >
+                R$ 100
+              </button>
+            </div>
+            <input
+              type="text"
+              id="buyerValue"
+              placeholder="R$ 0,00"
+              readonly
+              style="background: #f1f1f1; font-weight: bold; color: #333"
+            />
+          </div>
+
+          <!-- Fatura Discreta Badge Visual -->
+          <div
+            style="
+              background: #f8f9fa;
+              border: 1px dashed #ced4da;
+              padding: 10px 12px;
+              border-radius: 6px;
+              margin-bottom: 16px;
+              display: flex;
+              align-items: center;
+              gap: 12px;
+            "
+          >
+            <div
+              style="
+                background: #e9ecef;
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+              "
+            >
+              <i
+                class="fa-solid fa-eye-slash"
+                style="color: #6c757d; font-size: 1rem"
+              ></i>
+            </div>
+            <div>
+              <span
+                style="
+                  display: block;
+                  font-size: 0.8rem;
+                  font-weight: 800;
+                  color: #212529;
+                  margin-bottom: 2px;
+                "
+                >Pagamento 100% Anônimo</span
+              >
+              <span
+                style="
+                  font-size: 0.75rem;
+                  color: #495057;
+                  line-height: 1.3;
+                  display: block;
+                "
+                >No seu extrato aparecerá discretamente como:
+                <strong
+                  style="
+                    background: #e2e3e5;
+                    padding: 1px 4px;
+                    border-radius: 3px;
+                    color: #000;
+                    letter-spacing: 0.5px;
+                  "
+                  >APP*PAGAMENTO</strong
+                ></span
+              >
+            </div>
+          </div>
+
+          <button
+            class="modal-submit-btn"
+            onclick="submitPayment()"
+            style="
+              font-size: 1.05rem;
+              padding: 16px;
+              letter-spacing: 0.3px;
+              animation: pulse-green 2s infinite;
+            "
+          >
+            <i class="fa-solid fa-unlock-keyhole" style="margin-right: 8px"></i>
+            LIBERAR ACESSO AGORA
+          </button>
           <p class="modal-privacy">
             <i class="fa-solid fa-lock"></i> Compra discreta — não aparece no
             extrato com o nome do produto
