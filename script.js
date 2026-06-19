@@ -633,19 +633,22 @@ function forceCloseModal() {
 // ==========================
 // Máscaras de Input
 // ==========================
-document.getElementById("buyerPhone").addEventListener("input", function (e) {
-  let value = e.target.value.replace(/\D/g, "");
-  if (value.length > 11) value = value.slice(0, 11);
-  if (value.length > 2) {
-    value = value.replace(/^(\d{2})(\d)/, "($1) $2");
-  }
-  if (value.length > 9) {
-    value = value.replace(/(\d{5})(\d)/, "$1-$2");
-  } else if (value.length > 8) {
-    value = value.replace(/(\d{4})(\d)/, "$1-$2");
-  }
-  e.target.value = value;
-});
+const phoneInput = document.getElementById("buyerPhone");
+if (phoneInput) {
+  phoneInput.addEventListener("input", function (e) {
+    let value = e.target.value.replace(/\D/g, "");
+    if (value.length > 11) value = value.slice(0, 11);
+    if (value.length > 2) {
+      value = value.replace(/^(\d{2})(\d)/, "($1) $2");
+    }
+    if (value.length > 9) {
+      value = value.replace(/(\d{5})(\d)/, "$1-$2");
+    } else if (value.length > 8) {
+      value = value.replace(/(\d{4})(\d)/, "$1-$2");
+    }
+    e.target.value = value;
+  });
+}
 
 // ==========================================
 // FAKE SALES NOTIFICATIONS (TOASTS)
