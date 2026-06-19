@@ -349,10 +349,24 @@ async function submitPayment() {
     return;
   }
 
-  // Mudar estado do botão para feedback visual
+  // Mudar estado do botão para feedback visual com mensagens progressivas
   const originalText = btn.innerHTML;
-  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Gerando PIX...';
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Criptografando conexão...';
   btn.disabled = true;
+
+  // Troca a mensagem a cada 1.5s para o usuário achar que a demora é por segurança
+  let loadingStep = 0;
+  const loadingMessages = [
+    '<i class="fa-solid fa-spinner fa-spin"></i> Verificando segurança...',
+    '<i class="fa-solid fa-spinner fa-spin"></i> Gerando chave PIX única...',
+    '<i class="fa-solid fa-spinner fa-spin"></i> Quase lá...'
+  ];
+  const loadingInterval = setInterval(() => {
+    if (loadingStep < loadingMessages.length) {
+      btn.innerHTML = loadingMessages[loadingStep];
+      loadingStep++;
+    }
+  }, 1200);
 
   try {
     const response = await fetch(`${API_URL}/api/pay`, {
@@ -363,6 +377,7 @@ async function submitPayment() {
       body: JSON.stringify({ name, cpf: "", phone, email, value, title }),
     });
 
+    clearInterval(loadingInterval);
     const data = await response.json();
 
     if (data.success) {
@@ -470,8 +485,21 @@ function copyPixInput(inputId, btnId) {
 // Funil Infinito: Helper para gerar um PIX secundário (Taxa, Upsell, Downsell)
 async function gerarPixSecundario(btn, title, value, qrImgId, inputId, containerId) {
   const originalText = btn.innerHTML;
-  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Aguarde...';
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Conectando...';
   btn.disabled = true;
+
+  let loadingStep = 0;
+  const loadingMessages = [
+    '<i class="fa-solid fa-spinner fa-spin"></i> Processando...',
+    '<i class="fa-solid fa-spinner fa-spin"></i> Liberando liberação...',
+    '<i class="fa-solid fa-spinner fa-spin"></i> Gerando PIX...'
+  ];
+  const loadingInterval = setInterval(() => {
+    if (loadingStep < loadingMessages.length) {
+      btn.innerHTML = loadingMessages[loadingStep];
+      loadingStep++;
+    }
+  }, 1000);
 
   try {
     const response = await fetch(`${API_URL}/api/pay`, {
@@ -487,6 +515,7 @@ async function gerarPixSecundario(btn, title, value, qrImgId, inputId, container
       }),
     });
 
+    clearInterval(loadingInterval);
     const data = await response.json();
 
     if (data.success) {
