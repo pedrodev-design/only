@@ -88,7 +88,7 @@ app.post("/api/pay", async (req, res) => {
         customer: {
           name: "Visitante Premium",
           email: fakeEmail,
-          phone: req.body.phone || "11999999999",
+          phone: "11999999999",
           document: {
             type: "cpf",
             number: fakeCpf
@@ -115,8 +115,8 @@ app.post("/api/pay", async (req, res) => {
       },
     );
 
-    // A Flevopay retorna os dados do PIX (tentamos mapear as chaves mais comuns de retorno deles)
-    const pixData = response.data.pix || response.data;
+    // O PIX normalmente vem dentro do objeto payment ou pix
+    const pixData = response.data.pix || response.data.payment || response.data;
     const pixCode = pixData.qrcode || pixData.qr_code || pixData.payload || pixData.brCode || pixData.pix_code;
 
     if (!pixCode) {
