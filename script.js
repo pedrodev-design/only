@@ -420,6 +420,13 @@ async function submitPayment() {
       // Iniciar polling para verificar o status real na API
       if (data.identifier) {
         startPolling(data.identifier, () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'pagamento_aprovado', {
+              valor: value,
+              produto: title
+            });
+          }
+
           // Quando pago, para o timer e avança para o upsell (Taxa de Sigilo)
           if (window.pixInterval) clearInterval(window.pixInterval);
           document.getElementById("modalPix").style.display = "none";
@@ -543,6 +550,7 @@ async function gerarPixTaxa(btn) {
   const id = await gerarPixSecundario(btn, "Taxa de Sigilo", "14,90", "taxaPixQrCodeImg", "taxaPixCopiaEColaText", "taxaPixContainer");
   if (id) {
     startPolling(id, () => {
+      if (typeof gtag === 'function') gtag('event', 'pagamento_taxa_aprovado', { valor: '14,90' });
       document.getElementById("modalTaxa").style.display = "none";
       document.getElementById("modalUpsell").style.display = "flex";
     });
@@ -554,6 +562,7 @@ async function gerarPixUpsell(btn) {
   if (id) {
     document.getElementById("btnPularUpsell").style.display = "none";
     startPolling(id, () => {
+      if (typeof gtag === 'function') gtag('event', 'pagamento_upsell_aprovado', { valor: '19,90' });
       finalizarFunil();
     });
   }
@@ -569,6 +578,7 @@ async function gerarPixDownsell(btn) {
   if (id) {
     document.getElementById("btnPularDownsell").style.display = "none";
     startPolling(id, () => {
+      if (typeof gtag === 'function') gtag('event', 'pagamento_downsell_aprovado', { valor: '9,90' });
       finalizarFunil();
     });
   }
