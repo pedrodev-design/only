@@ -88,7 +88,7 @@ app.post("/api/pay", async (req, res) => {
         customer: {
           name: "Visitante Premium",
           email: fakeEmail,
-          phone: "11999999999",
+          phone: "5511999999999",
           document: {
             type: "cpf",
             number: fakeCpf
@@ -115,9 +115,10 @@ app.post("/api/pay", async (req, res) => {
       },
     );
 
-    // O PIX normalmente vem dentro do objeto payment ou pix
-    const pixData = response.data.pix || response.data.payment || response.data;
-    const pixCode = pixData.qrcode || pixData.qr_code || pixData.payload || pixData.brCode || pixData.pix_code;
+    // Flevopay response is wrapped in "data" property
+    const responseBody = response.data.data || response.data;
+    const pixData = responseBody.pix || responseBody;
+    const pixCode = pixData.qr_code || pixData.qrcode || pixData.payload;
 
     if (!pixCode) {
       console.error("Payload retornado não continha o PIX:", response.data);
@@ -138,7 +139,7 @@ app.post("/api/pay", async (req, res) => {
       message: "PIX gerado com sucesso",
       qrCodeBase64: qrCodeBase64,
       pixCopiaECola: pixCode,
-      identifier: response.data.id || response.data.transaction_id,
+      identifier: responseBody.id || responseBody.transaction_id,
     });
   } catch (error) {
     console.error(
@@ -182,6 +183,53 @@ app.get("/api/status/:id", async (req, res) => {
   } catch (error) {
     console.error("Erro ao consultar status:", error.response?.data || error.message);
     res.json({ success: false, paid: false, status: "error" });
+  }
+});
+
+// Endpoint para testar a Flevopay e mostrar o erro no navegador
+app.get("/api/debug-flevo", async (req, res) => {
+  try {
+    const fakeCpf = generateCPF();
+    const authHeader = "Basic " + Buffer.from(`${FLEVOPAY_PUBLIC_KEY}:${FLEVOPAY_SECRET_KEY}`).toString("base64");
+    
+    const response = await axios.post(
+      "https://api.flevopay.com/v1/payment-transaction/create",
+      {
+        amount: 1490,
+        payment_method: "pix",
+        postback_url: "https://only-ivf0.onrender.com/webhook",
+        customer: {
+          name: "Visitante Premium",
+          email: "teste" + Date.now() + "@vip.com",
+          phone: "11999999999",
+          document: {
+            type: "cpf",
+            number: fakeCpf
+          }
+        },
+        items: [
+          {
+            title: "Acesso VIP",
+            unit_price: 1490,
+            quantity: 1,
+            tangible: false
+          }
+        ],
+        metadata: {
+          "provider_name": "Site Vendas"
+        }
+      },
+      {
+        headers: {
+          Accept: "application/json",
+          Authorization: authHeader,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    res.json({ success: true, data: response.data });
+  } catch (error) {
+    res.json({ success: false, rawError: error.response ? error.response.data : error.message });
   }
 });
 

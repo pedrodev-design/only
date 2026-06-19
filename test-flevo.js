@@ -14,37 +14,38 @@ function generateCPF() {
   return `${n1}${n2}${n3}${n4}${n5}${n6}${n7}${n8}${n9}${d1}${d2}`;
 }
 
-async function testFlevopay() {
+async function testKey(keyName) {
   const FLEVOPAY_PUBLIC_KEY = process.env.FLEVOPAY_PUBLIC_KEY;
   const FLEVOPAY_SECRET_KEY = process.env.FLEVOPAY_SECRET_KEY;
   const authHeader = "Basic " + Buffer.from(`${FLEVOPAY_PUBLIC_KEY}:${FLEVOPAY_SECRET_KEY}`).toString("base64");
 
+  const customer = {
+    name: "Visitante Premium",
+    email: "cliente123@checkout.com",
+    document: {
+      type: "cpf",
+      number: generateCPF()
+    }
+  };
+  
+  customer[keyName] = "11999999999";
+
+  const payload = {
+    amount: 1490,
+    payment_method: "pix",
+    postback_url: "https://only-ivf0.onrender.com/webhook",
+    customer: customer,
+    items: [
+      {
+        title: "Acesso VIP",
+        unit_price: 1490,
+        quantity: 1,
+        tangible: false
+      }
+    ]
+  };
+
   try {
-    const payload = {
-        amount: 1490,
-        payment_method: "pix",
-        postback_url: "https://only-ivf0.onrender.com/webhook",
-        customer: {
-          name: "Visitante Premium",
-          email: "cliente123@checkout.com",
-          phone: "11999999999",
-          document: {
-            type: "cpf",
-            number: generateCPF()
-          }
-        },
-        items: [
-          {
-            title: "Acesso VIP",
-            unit_price: 1490,
-            quantity: 1,
-            tangible: false
-          }
-        ]
-      };
-
-    console.log("Sending payload:", JSON.stringify(payload, null, 2));
-
     const response = await axios.post(
       "https://api.flevopay.com/v1/payment-transaction/create",
       payload,
@@ -56,14 +57,25 @@ async function testFlevopay() {
         },
       }
     );
-    console.log("Success:", JSON.stringify(response.data, null, 2));
+    return { success: true, key: keyName, data: response.data };
   } catch (error) {
-    if (error.response) {
-      console.error("Flevopay Error:", JSON.stringify(error.response.data, null, 2));
+    return { success: false, key: keyName, error: error.response ? error.response.data : error.message };
+  }
+}
+
+async function runTests() {
+  const keys = ["phone", "phoneNumber", "phone_number", "mobile", "mobile_phone", "celular", "telefone", "Phone"];
+  
+  for (const key of keys) {
+    console.log(`Testing key: ${key}...`);
+    const result = await testKey(key);
+    if (result.success) {
+      console.log(`SUCCESS with key: ${key}!`);
+      break;
     } else {
-      console.error("Connection Error:", error.message);
+      console.log(`Failed with key: ${key}. Error:`, JSON.stringify(result.error).substring(0, 100));
     }
   }
 }
 
-testFlevopay();
+runTests();
