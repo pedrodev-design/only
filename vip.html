@@ -1645,34 +1645,13 @@
         }
       }
 
-      initFakeChat();
+      // Inicia o chat apenas após a primeira interação do usuário, para que o áudio não seja bloqueado pelo navegador
+      window.addEventListener('click', initFakeChat, { once: true });
+      window.addEventListener('touchstart', initFakeChat, { once: true });
+      window.addEventListener('scroll', initFakeChat, { once: true });
     </script>
-    <!-- Script Anti-Cache para Filtro de Abas -->
     <script>
-
-      function gerarPixTaxa(btn) {
-        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Aguardando Pagamento...';
-        // Simula o pagamento da taxa de segurança
-        setTimeout(() => {
-          document.getElementById('modalTaxa').style.display = 'none';
-          document.getElementById('modalUpsell').style.display = 'flex';
-        }, 3500);
-      }
-
-      function gerarPixUpsell(btn) {
-        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processando...';
-        // Simula o pagamento do Upsell
-        setTimeout(() => {
-          alert('Parabéns! O Funil Infinito converteu todas as etapas. Em produção, aqui você redirecionaria para a página VIP.');
-          closePaymentModal();
-        }, 2000);
-      }
-
-      function pularUpsell() {
-        alert('Usuário pulou o Upsell. Redirecionando para o conteúdo VIP final...');
-        closePaymentModal();
-      }
-
+      // (Funções de mock removidas, as reais estão em script.js)      
       window.filterMedia = function(filter, btnElement) {
         const filterBtns = document.querySelectorAll('.filter-btn');
         const mediaItems = document.querySelectorAll('.media-item');
