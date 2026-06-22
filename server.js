@@ -13,6 +13,52 @@ app.use(express.json());
 app.use(express.static(__dirname));
 
 // ==========================================
+// TIKTOK EVENTS API
+// ==========================================
+const crypto = require("crypto");
+const TIKTOK_ACCESS_TOKEN = "f2db4ecf9e3c5c2c9cc00dbacbb7207df6143999";
+const TIKTOK_PIXEL_ID = "D8SJ8IJC77U5NRSHLLR0";
+
+function hashData(data) {
+  if (!data) return undefined;
+  return crypto.createHash('sha256').update(data.toString().trim().toLowerCase()).digest('hex');
+}
+
+async function sendTikTokEvent(eventName, eventData, userData = {}) {
+  try {
+    const payload = {
+      pixel_code: TIKTOK_PIXEL_ID,
+      test_event_code: "TEST48725",
+      data: [
+        {
+          event: eventName,
+          event_time: Math.floor(Date.now() / 1000),
+          user: {
+            email: userData.email,
+            phone: userData.phone,
+            client_ip_address: userData.ip,
+            client_user_agent: userData.userAgent
+          },
+          properties: eventData
+        }
+      ]
+    };
+
+    await axios.post("https://business-api.tiktok.com/open_api/v1.3/event/track/", payload, {
+      headers: {
+        "Access-Token": TIKTOK_ACCESS_TOKEN,
+        "Content-Type": "application/json"
+      }
+    });
+    console.log(`[TikTok Events API] Evento ${eventName} enviado com sucesso.`);
+  } catch (err) {
+    console.error(`[TikTok Events API] Erro ao enviar evento ${eventName}:`, err.response ? err.response.data : err.message);
+  }
+}
+
+const pendingTransactions = new Map();
+
+// ==========================================
 // CREDENCIAIS DA API FLEVOPAY
 // Carregadas de forma segura através do .env
 // ==========================================
@@ -134,12 +180,34 @@ app.post("/api/pay", async (req, res) => {
       width: 250,
     });
 
+    const identifier = responseBody.id || responseBody.transaction_id;
+
+    // Salvar transação para o webhook/status
+    pendingTransactions.set(identifier, {
+      value: pixValue,
+      title: title || "Acesso VIP",
+      email: email,
+      phone: phone
+    });
+
+    // Enviar evento de InitiateCheckout para o TikTok
+    sendTikTokEvent("InitiateCheckout", {
+      value: pixValue,
+      currency: "BRL",
+      contents: [{ content_name: title || "Acesso VIP", price: pixValue, quantity: 1 }]
+    }, {
+      email: hashData(email),
+      phone: hashData(phone),
+      ip: req.ip,
+      userAgent: req.headers['user-agent']
+    });
+
     res.json({
       success: true,
       message: "PIX gerado com sucesso",
       qrCodeBase64: qrCodeBase64,
       pixCopiaECola: pixCode,
-      identifier: responseBody.id || responseBody.transaction_id,
+      identifier: identifier,
     });
   } catch (error) {
     console.error(
@@ -175,6 +243,25 @@ app.get("/api/status/:id", async (req, res) => {
     const status = response.data.status || "pending";
     const isPaid = status === "paid" || status === "approved" || status === "completed";
     
+    if (isPaid && pendingTransactions.has(transactionId)) {
+      const txData = pendingTransactions.get(transactionId);
+      
+      // Disparar evento de Purchase no TikTok
+      sendTikTokEvent("Purchase", {
+        value: txData.value,
+        currency: "BRL",
+        contents: [{ content_name: txData.title, price: txData.value, quantity: 1 }]
+      }, {
+        email: hashData(txData.email),
+        phone: hashData(txData.phone),
+        ip: req.ip,
+        userAgent: req.headers['user-agent']
+      });
+
+      // Remove para não enviar evento duplicado em futuros polls
+      pendingTransactions.delete(transactionId);
+    }
+
     res.json({
       success: true,
       paid: isPaid,

@@ -42,6 +42,14 @@ document.addEventListener("DOMContentLoaded", () => {
     gtag('event', 'visitante_pagina');
   }
 
+  // Evento ViewContent do TikTok
+  if (typeof ttq === 'object' && typeof ttq.track === 'function') {
+    ttq.track('ViewContent', {
+      contents: [{ content_name: 'Página VIP', content_type: 'product' }],
+      currency: 'BRL'
+    });
+  }
+
   setTimeout(() => {
     if (typeof gtag === 'function') gtag('event', 'tempo_30s');
   }, 30000);
@@ -200,6 +208,24 @@ function openPaymentModal(title, defaultPrice) {
     gtag('event', 'checkout_aberto', {
       nome_plano: title,
       valor_plano: defaultPrice
+    });
+  }
+
+  // Evento AddToCart do TikTok
+  if (typeof ttq === 'object' && typeof ttq.track === 'function') {
+    let priceNum = 0;
+    if (defaultPrice) {
+      priceNum = parseFloat(defaultPrice.replace(',', '.'));
+    }
+    ttq.track('AddToCart', {
+      contents: [{
+        content_name: title,
+        price: priceNum,
+        quantity: 1
+      }],
+      content_type: 'product',
+      value: priceNum,
+      currency: 'BRL'
     });
   }
 
@@ -477,16 +503,40 @@ function copyPixInput(inputId, btnId) {
   }
 
   const pixText = document.getElementById(inputId);
-  pixText.select();
-  pixText.setSelectionRange(0, 99999);
-  document.execCommand("copy");
+  if (!pixText) return;
 
   const copyBtn = document.getElementById(btnId);
-  const oldText = copyBtn.innerHTML;
-  copyBtn.innerHTML = "Copiado!";
-  setTimeout(() => {
-    copyBtn.innerHTML = oldText;
-  }, 2000);
+  const oldText = copyBtn ? copyBtn.innerHTML : "";
+
+  const showCopiedFeedback = () => {
+    if (copyBtn) {
+      copyBtn.innerHTML = "Copiado!";
+      setTimeout(() => {
+        copyBtn.innerHTML = oldText;
+      }, 2000);
+    }
+  };
+
+  const fallbackCopy = () => {
+    pixText.select();
+    pixText.setSelectionRange(0, 99999);
+    try {
+      document.execCommand("copy");
+      showCopiedFeedback();
+    } catch (err) {
+      console.error("Erro ao copiar: ", err);
+    }
+  };
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(pixText.value).then(() => {
+      showCopiedFeedback();
+    }).catch(err => {
+      fallbackCopy();
+    });
+  } else {
+    fallbackCopy();
+  }
 }
 
 // Funil Infinito: Helper para gerar um PIX secundário (Taxa, Upsell, Downsell)
