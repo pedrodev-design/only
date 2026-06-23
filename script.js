@@ -366,7 +366,19 @@ async function submitPayment() {
   hideModalError();
 
   const name = "Cliente VIP";
-  const phone = "119" + Math.floor(10000000 + Math.random() * 90000000); // Gerado automaticamente
+  
+  const phoneInputEl = document.getElementById("buyerPhone");
+  if (!phoneInputEl) {
+    showModalError("Ocorreu um erro ao localizar o campo de WhatsApp.");
+    return;
+  }
+  const rawPhone = phoneInputEl.value.replace(/\D/g, "");
+  if (rawPhone.length < 10) {
+    showModalError("Por favor, digite um WhatsApp válido (com DDD) para receber o conteúdo.");
+    return;
+  }
+  
+  const phone = rawPhone;
   const email = "cliente_" + Date.now() + "@vip.com"; // Gerado automaticamente
   
   const value = document.getElementById("buyerValue").value.trim();
