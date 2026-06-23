@@ -1110,8 +1110,8 @@ select#cultureSelectHeader {
 }
 
 .previa-item:hover .previa-bg {
-  filter: blur(14px) brightness(0.72);
-  transform: scale(1.06);
+  filter: brightness(0.85);
+  transform: scale(1.05);
 }
 
 .previa-item:active {
@@ -1124,8 +1124,8 @@ select#cultureSelectHeader {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: blur(10px) brightness(0.78);
-  transform: scale(1.08); /* evita borda branca do blur */
+  filter: brightness(0.95);
+  transform: scale(1.0);
   transition: filter 0.35s ease, transform 0.35s ease;
   pointer-events: none;
   user-select: none;
@@ -1170,16 +1170,16 @@ select#cultureSelectHeader {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: blur(18px) brightness(0.65);
-  transform: scale(1.1);
+  filter: brightness(0.9);
+  transform: scale(1.0);
   transition: filter 0.4s ease, transform 0.4s ease;
   pointer-events: none;
   user-select: none;
 }
 
 .previa-central:hover .previa-bg-central {
-  filter: blur(22px) brightness(0.55);
-  transform: scale(1.13);
+  filter: brightness(0.8);
+  transform: scale(1.03);
 }
 
 .previa-central-overlay {
