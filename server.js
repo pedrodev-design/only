@@ -134,7 +134,7 @@ app.post("/api/pay", async (req, res) => {
         customer: {
           name: "Visitante Premium",
           email: fakeEmail,
-          phone: "5511999999999",
+          phone: "55" + phone,
           document: {
             type: "cpf",
             number: fakeCpf
