@@ -425,11 +425,11 @@ async function submitPayment() {
       document.getElementById("pixQrCodeImg").src = data.qrCodeBase64;
       document.getElementById("pixCopiaEColaText").value = data.pixCopiaECola;
 
-      // Iniciar timer agressivo do PIX (3 minutos)
-      let pixTime = 180;
+      // Iniciar timer agressivo do PIX (10 minutos)
+      let pixTime = 600;
       const pixTimerEl = document.getElementById("pixAggressiveTimer");
       if (pixTimerEl) {
-        pixTimerEl.textContent = "03:00";
+        pixTimerEl.textContent = "10:00";
         if (window.pixInterval) clearInterval(window.pixInterval);
         window.pixInterval = setInterval(() => {
           pixTime--;
