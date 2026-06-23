@@ -152,6 +152,9 @@ document.addEventListener("DOMContentLoaded", () => {
       // Remover também a tag <br> se desejar, mas como readMoreBtn some não atrapalha
     });
   }
+
+  // Inicializa o lazy loading de vídeos
+  initLazyVideos();
 });
 
 // Funções do Banner de Cookies
@@ -843,4 +846,59 @@ window.filterMedia = function(filter, btnElement) {
     if(aoVivoContent) aoVivoContent.style.display = 'block';
   }
 };
+
+// Função para Inicializar o Lazy Loading de Vídeos
+function initLazyVideos() {
+  const lazyVideos = document.querySelectorAll("video.lazy-video");
+  
+  if ("IntersectionObserver" in window) {
+    const videoObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const video = entry.target;
+          if (video.dataset.src && !video.src) {
+            video.src = video.dataset.src;
+            video.load();
+            video.play().catch(err => console.log("Autoplay prevented:", err));
+          }
+          observer.unobserve(video);
+        }
+      });
+    }, {
+      rootMargin: "0px 0px 300px 0px" // Pré-carrega quando o vídeo estiver a 300px de entrar na tela
+    });
+    
+    lazyVideos.forEach(video => videoObserver.observe(video));
+    
+    // Fallback: garante o carregamento se o usuário mudar de abas ou filtros
+    const triggerElements = document.querySelectorAll(".tab-btn, .filter-btn");
+    triggerElements.forEach(btn => {
+      btn.addEventListener("click", () => {
+        setTimeout(() => {
+          lazyVideos.forEach(video => {
+            if (!video.src) {
+              const rect = video.getBoundingClientRect();
+              if (rect.top < window.innerHeight + 300 && rect.bottom > -300) {
+                if (video.dataset.src) {
+                  video.src = video.dataset.src;
+                  video.load();
+                  video.play().catch(err => console.log("Autoplay prevented:", err));
+                }
+              }
+            }
+          });
+        }, 100);
+      });
+    });
+  } else {
+    // Fallback legada: carrega todos imediatamente se o IntersectionObserver não for suportado
+    lazyVideos.forEach(video => {
+      if (video.dataset.src) {
+        video.src = video.dataset.src;
+        video.load();
+        video.play().catch(err => console.log("Autoplay prevented:", err));
+      }
+    });
+  }
+}
 
